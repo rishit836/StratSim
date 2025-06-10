@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block header %}
+<link rel="stylesheet" href='{% static "mainapp/styles/accountpage.css" %}'>
+{% endblock header %}
+
+{% block pagename %}Account{% endblock pagename %}
+
+{% block body %}
+<div class="account-container">
+    <div class="sidebar">
+        <div class="user-profile">
+            <div class="avatar">
+                {% if user.profile.image %}
+                    <img src="{{ user.profile.image.url }}" alt="Profile">
+                {% else %}
+                    <span>{{ user.username|slice:":1"|upper }}</span>
+                {% endif %}
+            </div>
+            <div class="username">{{ user.username }}</div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#overview" class="nav-item">
+                <svg width="20" height="20" fill="none"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z" fill="#fff"/></svg>
+                Overview
+            </a>
+            <a href="#account" class="nav-item active">
+                <svg width="20" height="20" fill="none"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z" fill="#fff"/></svg>
+                Account
+            </a>
+            <a href="#preferences" class="nav-item">
+                <svg width="20" height="20" fill="none"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z" fill="#fff"/></svg>
+                Preferences
+            </a>
+            <a href="#help" class="nav-item">
+                <svg width="20" height="20" fill="none"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z" fill="#fff"/></svg>
+                Help
+            </a>
+            <a href="{% url 'main:logout' %}" class="nav-item">
+                <svg width="20" height="20" fill="none"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z" fill="#fff"/></svg>
+                Logout
+            </a>
+        </nav>
+    </div>
+
+    <div class="main-content">
+        <h1>Account</h1>
+        
+        <section class="settings-section">
+            <h2>Personal Information</h2>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" class="form-control" value="{{ user.get_full_name }}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-control" value="{{ user.email }}">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" class="form-control" value="{{ user.profile.phone }}">
+            </div>
+        </section>
+
+        <section class="settings-section">
+            <h2>Security</h2>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" value="********">
+            </div>
+            <button class="btn-secondary">Change Password</button>
+        </section>
+
+        <section class="settings-section">
+            <h2>Account Settings</h2>
+            <div class="form-group">
+                <label for="language">Language</label>
+                <select id="language" class="form-control">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="timezone">Time Zone</label>
+                <select id="timezone" class="form-control">
+                    <option value="UTC">UTC</option>
+                    <option value="EST">EST</option>
+                </select>
+            </div>
+        </section>
+
+        <button class="btn-primary">Save Changes</button>
+    </div>
+</div>
+{% endblock body %}

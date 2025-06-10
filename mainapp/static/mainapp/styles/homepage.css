@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+.heading{
+    font-family: "Manrope";
+    font-weight: bold;
+    color: #fff;
+    margin:0;
+}
+
+.heading.greet{
+    font-family: "Manrope";
+    font-weight: 500;
+    color: #f1fdef;
+    margin:0;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.heading-container{
+    display:flex;
+    margin-top: 30px;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 0px;
+    padding-left:0px;
+}
+.dashboard-subtext{
+    margin-top: 4px;;
+    color: #bfc8b8;
+    font-size: 1rem;
+    font-weight:normal;
+}
+
+
+
+.dashboard-container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 16px;;
+}
+
+/* dashboard layout */
+.overview-cards{
+    display: flex;
+    gap: 75px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+}
+
+.dashboard-card{
+    background-color: #23281f;
+    border-radius: 14px;
+    padding: 28px 28px 18px 28px;
+    min-width: 250px;
+    min-height: 120px;
+    color: #fff;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+/* card content */
+.card-title{
+    font-size: 1.05rem;;
+    color: #bfc8b8;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+.card-value{
+    font-size:1rem;
+    font-weight: bold;
+    margin-bottom :8px;
+    color:#fff;
+}
+
+.card-change{
+    font-size:1rem;
+    font-weight: 300;
+}
+.card-change.positive {
+    color: #4be07a;
+}
+
+.card-change.negative {
+    color: #e04b4b;
+}
+
+@media (max-width: 900px) {
+    .overview-cards {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .dashboard-card {
+        width: 100%;
+        min-width: unset;
+    }
+}
+

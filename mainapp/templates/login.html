@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block pagename %}
+Login
+{% endblock pagename %}
+{% block header %}
+<link rel="stylesheet" href='{% static "mainapp/styles/signup.css" %}'>
+{% endblock header %}
+{% block body %}
+ 
+
+
+<div class="form-container">
+    <div class="form">
+        
+    <form action="{% url 'main:login' %}" method="POST">
+        {% csrf_token %}
+      <div class="heading-container">
+    <div>
+    <h3 class="heading">login | <span><a href="{% url 'main:signup' %}">signup</a></span> </h3> 
+    </div>
+    <div>
+        <div class="dashboard-subtext">Welcome Back! Please enter your username and password.</div> 
+    </div>
+</div>
+        <div class="form-element">
+        <label for="username">USERNAME:</label>
+        
+        </div>
+        <div class="form-element">
+            <input type="text" name="username" id="" class="field" placeholder="username">
+        </div>
+
+        <div class="form-element">
+        <label for="password">PASSWORD:</label>
+        
+        </div>
+        <div class="form-element">
+            <input type="password" name="password" id="" class="field" placeholder="password" >
+        </div>
+        <div class="form-element">
+           <input type="submit" value="submit" class="button">
+        </div>
+
+        {% if messages %}
+        <div class="form-element">
+            <div class="message {{message_type}}">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+                
+            </div>
+        </div>
+        {% endif %}
+
+       
+
+    </form>
+    </div>
+</div>
+{% endblock body %}
+
+

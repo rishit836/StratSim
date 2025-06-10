@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block pagename %}Home{% endblock pagename %}
+{% block header %} 
+<link rel="stylesheet" href='{% static "mainapp/styles/homepage.css" %}'>
+{% endblock header %}
+
+
+{% block body %}
+<div class="dashboard-container">
+
+<div class="heading-container">
+    <div>
+        {% if request.user.is_authenticated %}
+        <h4 class="heading greet">Welcome {{request.user}},</h4>
+            
+        {% endif %}
+    <h3 class="heading">Dashboard</h3>
+    <div class="dashboard-subtext">Overview of your portfolio and recent activity.</div>
+    </div>
+</div>
+<div class="overview-cards">
+    <div class="dashboard-card">
+        <div class="card-title">Total Virtual Funds</div>
+        <div class="card-value">${{fund}}</div>
+        <div class="card-change {{fv}}">
+            {% if fv == "positive" %}
+                +
+            {% endif %}
+            {{fc}}%</div>
+    </div>
+    <div class="dashboard-card">
+        <div class="card-title">Total Return</div>
+        <div class="card-value">{{return}}%</div>
+        <div class="card-change {{rv}}">
+            {% if rv == "positive" %}
+                +
+            {% endif %}
+            {{return_change}}%</div>
+    </div>
+    <div class="dashboard-card">
+        <div class="card-title">Active Strategies</div>
+        <div class="card-value">{{active_strats}}</div>
+        <div class="card-change {{sv}}">
+            {% if sv == "positive" %}
+                +
+            {% endif %}
+            {{strat_change}}%</div>
+    </div>
+</div>
+
+<div class="portfolio-container">
+    <div class="heading-container">
+    <div>
+    <h4 class="heading">Perfomance</h3>
+    <div class="dashboard-subtext">Portfolio Chart</div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock body %}
