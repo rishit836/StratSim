@@ -26,7 +26,7 @@
               <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'main:home' %}">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {% if request.resolver_match.url_name == 'market' %}active{% endif %}" href="{% url 'main:market' %}" href="{% url "main:market" %}">Market</a>
+              <a class="nav-link {% if request.resolver_match.url_name == 'market' %}active{% endif %}" href="{% url 'stocks:market' %}" href="{% url "stocks:market" %}">Market</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="">Portfolio</a>
@@ -38,7 +38,21 @@
 
           {% if request.user.is_authenticated %}
 
-        <div class="dropdown">
+          <form class="searchbox d-flex align-items-center mx-2" role="search" method="get" action="{% url 'stocks:search' %}">
+            {% csrf_token %} 
+  <span class="search-icon">
+    <svg width="18" height="18" fill="none" stroke="#bfc8b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="8" cy="8" r="7"/>
+      <line x1="13" y1="13" x2="17" y2="17"/>
+    </svg>
+  </span>
+  <input class="search-input" type="search" name="q" placeholder="Search" aria-label="Search">
+</form>
+
+        <!-- <div class="searchbox">
+          <input type="text">
+        </div>
+        <div class="dropdown"> -->
   <span 
     class="user-circle dropdown-toggle p-0 overflow-hidden" 
     id="profileDropdown" 

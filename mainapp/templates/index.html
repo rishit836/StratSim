@@ -7,20 +7,21 @@
 
 
 {% block body %}
-<div class="dashboard-container">
-
-<div class="heading-container">
-    <div>
+<div class="dashboard-outer">
+  <div class="dashboard-container{% if not request.user.is_authenticated %} blurred{% endif %}">
+    <div class="heading-container">
+      <div>
         {% if request.user.is_authenticated %}
-        <h4 class="heading greet">Welcome {{request.user}},</h4>
-            
+        <h4 class="heading greet">Welcome
+            <span style="text-decoration: underline;">{{request.user}}</span>,
+            </h4>
         {% endif %}
-    <h3 class="heading">Dashboard</h3>
-    <div class="dashboard-subtext">Overview of your portfolio and recent activity.</div>
+        <h3 class="heading">Dashboard</h3>
+        <div class="dashboard-subtext">Overview of your portfolio and recent activity.</div>
+      </div>
     </div>
-</div>
-<div class="overview-cards">
-    <div class="dashboard-card">
+    <div class="overview-cards">
+      <div class="dashboard-card">
         <div class="card-title">Total Virtual Funds</div>
         <div class="card-value">${{fund}}</div>
         <div class="card-change {{fv}}">
@@ -47,15 +48,20 @@
             {% endif %}
             {{strat_change}}%</div>
     </div>
-</div>
-
-<div class="portfolio-container">
-    <div class="heading-container">
-    <div>
-    <h4 class="heading">Perfomance</h3>
-    <div class="dashboard-subtext">Portfolio Chart</div>
     </div>
-</div>
-</div>
+    <div class="portfolio-container">
+      <div class="heading-container">
+        <div>
+          <h4 class="heading">Perfomance</h4>
+          <div class="dashboard-subtext">Portfolio Chart</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if not request.user.is_authenticated %}
+  <div class="dashboard-blur-overlay">
+    <span>Log in to view dashboard</span>
+  </div>
+  {% endif %}
 </div>
 {% endblock body %}

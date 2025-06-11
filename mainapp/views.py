@@ -2,7 +2,8 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from stocks.models import Portfolio
+from stocks.models import Portfolio,Strategy
+from django.db.models import Q
 
 # Create your views here.
 
@@ -13,20 +14,35 @@ def PON(val):
         return "negative"
     
 
-
 def home(request):
+    if request.method == "GET":
+        query = request.GET.get('q')
+        # print("Query!!", query)
 
     if request.user.is_authenticated:
         portfolio = Portfolio.objects.get(user=request.user)
         fund = portfolio.current_funds
         fund_change = portfolio.profit_loss_percent()
+        return_change = portfolio.update_return_history()
+        strategies = Strategy.objects.filter(user=request.user, is_active=True)
+        current_return = portfolio.profit_loss_percent()
     else:
         fund = 0
+        portfolio = 0
+        fund = 0
+        fund_change = 0
+        return_change = 0
+        strategies = 0
+        current_return = 0
 
-    return_val = 15.2
-    active_strats = 3
-    return_change = -1.2
-    strat_change =  .5
+    return_val = current_return
+    if strategies:
+        active_strats = strategies
+    else:
+        active_strats = 0
+        strat_change =  0
+
+    
     context = {'fund':"{:,}".format(fund), 'return':return_val, 'active_strats':active_strats, 'rv':PON(return_change), 'sv':PON(strat_change),'fv':PON(fund_change),"fc":fund_change,"return_change":return_change, "strat_change":strat_change}
 
     return render(request,'index.html',context)

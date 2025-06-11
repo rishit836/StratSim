@@ -83,6 +83,40 @@
     color: #e04b4b;
 }
 
+.dashboard-outer {
+    position: relative;
+}
+
+.blurred {
+    filter: blur(6px);
+    pointer-events: none;
+    user-select: none;
+}
+
+.dashboard-blur-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    pointer-events: all;
+}
+
+.dashboard-blur-overlay span {
+    background: rgba(30, 36, 32, 0.85);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 32px 48px;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
 @media (max-width: 900px) {
     .overview-cards {
         flex-direction: column;

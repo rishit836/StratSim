@@ -96,12 +96,12 @@
     color: #131712;
     letter-spacing: .1rem;;
     padding: 3px 10px;
-    width: 75px;;
+    width: 100px;;
     text-align: center;
     transition: all .5s ;
 }
 .button:hover{
-    width: 100px;
+    width: 120px;
     color: #afc9e9;
 
 }

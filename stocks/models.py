@@ -9,6 +9,7 @@ class Portfolio(models.Model):
     initial_funds = models.DecimalField(max_digits=15, decimal_places=2, default=100000)
     current_funds = models.DecimalField(max_digits=15, decimal_places=2, default=100000)
     invested_amount = models.DecimalField(max_digits=15, decimal_places=2, default=0)
+    previous_return_percent = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     
     def total_value(self):
         return self.current_funds + self.invested_amount
@@ -17,6 +18,18 @@ class Portfolio(models.Model):
         if self.initial_funds == 0:
             return 0
         return ((self.total_value() - self.initial_funds) / self.initial_funds) * 100
+    
+    def profit_loss_percent(self):
+        if self.initial_funds == 0:
+            return 0
+        return ((self.total_value() - self.initial_funds) / self.initial_funds) * 100
+    
+    def update_return_history(self):
+        current_return = self.profit_loss_percent()
+        change = current_return - self.previous_return_percent
+        self.previous_return_percent = current_return
+        self.save()
+        return change
 
     def __str__(self):
         return f"{self.user.username}'s Portfolio"
@@ -56,3 +69,13 @@ class Transaction(models.Model):
 
     def __str__(self):
         return f"{self.action} {self.quantity} of {self.ticker} @ {self.price} by {self.user.username}"
+    
+
+class Strategy(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {'Active' if self.is_active else 'Inactive'}"
