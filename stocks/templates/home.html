@@ -1,12 +1,167 @@
 {% extends "layout.html" %}
 {% load static %}
+{% load custom_filters %}
 {% block pagename %}StockMarket{% endblock pagename %}
 {% block header %}
 <link rel="stylesheet" href='{% static "stocks/styles/homepage.css" %}'>
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+
 {% endblock header %}
 
 {% block body %}
-    <div class="market-container">
-        div
+
+
+
+<div class="market-container">
+    <div class="heading-container">
+        <h3 class="heading">welcome to market
+            {% if request.user.is_authenticated %}
+            <span style="text-decoration:underline;">{{request.user.username}}</span>,
+            {% endif %}
+        </h3>
+        <div class="heading-subtext">Start by searching some tickers.</div>
     </div>
-{% endblock body %}
+    <div class="search-container">
+        <form role="search" method="get" action="{% url 'stocks:search' %}">
+            <input type="search" name="q" id="" placeholder="search for stocks">
+        </form>
+    </div> 
+
+    <h4 class="heading" style="margin-top:50px; font-weight:400;">
+        Browse
+    </h4>
+    
+    <div class="divider" ></div>
+
+
+    <div class="category-container">
+
+        <div class="category-heading">
+            <h4 class="heading">List</h4>
+            <div class="heading-subtext">Select List:</div>
+        </div>
+
+
+
+        <form action="{% url 'stocks:filter' %}">
+            {% if list == "top" %}
+            <button type="submit" name="list" value="top" class="active">Top 100</button>
+            {% else %}
+            <button type="submit" name="list" value="top">Top 100</button>
+            {% endif %}
+
+
+            {% if list == "trend" %}
+            <button type="submit" name="list" value="trend" class="active">Trending</button>
+            {% else %}
+            <button type="submit" name="list" value="trend">Trending</button>
+            {% endif %}
+
+            {% if list == "mostactive" %}
+            <button type="submit" name="list" value="mostactive" class="active">Most Active</button>
+            {% else %}
+            <button type="submit" name="list" value="mostactive">Most Active</button>
+            {% endif %}
+
+        </form>
+    </div>
+
+
+    <!-- <div class="divider"></div> -->
+     <br>
+    
+
+
+    <div class="category-container">
+
+        <div class="category-heading">
+            <h4 class="heading">Category</h4>
+            <div class="heading-subtext">Select Category:</div>
+        </div>
+
+
+
+
+        <form action="{% url 'stocks:filter' %}">
+
+            {% if filter_applied %}
+
+            {% if filter == "tech" %}
+            <button type="submit" name="sector" value="tech" class="active">Tech</button>
+            {% else %}
+            <button type="submit" name="sector" value="tech">Tech</button>
+            {% endif %}
+            {% if filter == "energy" %}
+            <button type="submit" name="sector" value="energy" class="active">Energy</button>
+            {% else %}
+            <button type="submit" name="sector" value="energy">Energy</button>
+            {% endif %}
+
+            {% if filter == "healthcare" %}
+            <button type="submit" name="sector" value="healthcare" class="active">Healthcare</button>
+            {% else %}
+            <button type="submit" name="sector" value="healthcare">Healthcare</button>
+            {% endif %}
+
+            {% if filter == "estate" %}
+            <button type="submit" name="sector" value="estate" class="active">Real Estate</button>
+            {% else %}
+            <button type="submit" name="sector" value="estate">Real Estate</button>
+            {% endif %}
+            {% if filter == "finance" %}
+            <button type="submit" name="sector" value="finance" class="active">Finance</button>
+            {% else %}
+            <button type="submit" name="sector" value="finance">Finance</button>
+            {% endif %}
+
+
+
+            {% else %}
+            <button type="submit" name="sector" value="tech">Tech</button>
+            <button type="submit" name="sector" value="energy">Energy</button>
+
+            <button type="submit" name="sector" value="healthcare">Healthcare</button>
+            <button type="submit" name="sector" value="estate">Real Estate</button>
+            <button type="submit" name="sector" value="finance">Finance</button>
+            {% endif %}
+
+
+        </form>
+    </div>
+
+    <div class="divider"></div>
+    <div class="table-container">
+    {% if table_data %}
+        <table class="stock-table">
+            <thead>
+                <tr>
+                    {% for col in columns %}
+                        <th>{{ col|capfirst }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in table_data %}
+                    <tr>
+                        {% for col in columns %}
+                            <td>{{ row|get_item:col }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="loading">
+            <div class="spinner"></div>
+            <span>Loading data...</span>
+        </div>
+        <script>
+    setTimeout(function() {
+        window.location.reload();
+    }, 10000); // Refresh every 2 seconds
+</script>
+    {% endif %}
+</div>
+
+    {% endblock body %}
