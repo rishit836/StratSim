@@ -1,14 +1,76 @@
-symbol,name,price,change,category,list_type
-AAPL,Apple Inc.,202.67,1.22,tech,top100
-MSFT,Microsoft Corporation,470.92,-1.83,tech,top100
-JPM,JPMorgan Chase & Co.,268.6,1.86,finance,top100
-XOM,Exxon Mobil Corporation,107.22,2.25,energy,top100
-UNH,UnitedHealth Group Incorporated,303.79,0.6,healthcare,top100
-V,Visa Inc.,370.7,4.04,finance,top100
-NVDA,NVIDIA Corporation,143.96,1.33,tech,top100
-CVX,Chevron Corporation,143.35,2.59,energy,top100
-PFE,Pfizer Inc.,24.3,0.33,healthcare,top100
-BAC,Bank of America Corporation,45.09,0.22,finance,top100
-WFC,Wells Fargo & Company,75.45,-1.01,finance,top100
-INTC,Intel Corporation,22.08,1.6,tech,top100
-C,Citigroup Inc.,78.03,-0.14,finance,top100
+symbol,name,current_price,price_change,percent_change,list_type
+OKLO,Oklo Inc.,68.03,15.49,29.4823,top_100
+QUBT,Quantum Computing Inc.,18.97,3.84,25.38,top_100
+SMR,NuScale Power Corporation,41.6,7.05,20.4052,top_100
+RGTI,"Rigetti Computing, Inc.",12.52,1.28,11.3879,top_100
+FLR,Fluor Corporation,49.79,4.92,10.965,top_100
+LEU,Centrus Energy Corp.,158.13,12.21,8.3676,top_100
+BILI,Bilibili Inc.,21.06,1.61,8.27763,top_100
+INSM,Insmed Incorporated,97.98,7.05,7.75322,top_100
+TLN,Talen Energy Corporation,274.82,19.725,7.73242,top_100
+AGX,"Argan, Inc.",224.31,14.86,7.09477,top_100
+ACHR,Archer Aviation Inc.,12.17,0.79,6.942,top_100
+FUTU,Futu Holdings Limited,114.68,7.11,6.60965,top_100
+NU,Nu Holdings Ltd.,12.76,0.79,6.59983,top_100
+HSAI,Hesai Group,20.62,1.25,6.45328,top_100
+PAGS,PagSeguro Digital Ltd.,9.11,0.549999,6.42522,top_100
+INTR,"Inter & Co, Inc.",7.25,0.4,5.83942,top_100
+ELF,"e.l.f. Beauty, Inc.",124.52,6.56,5.5612,top_100
+COOP,Mr. Cooper Group Inc.,142.78,7.33,5.41159,top_100
+ALHC,"Alignment Healthcare, Inc.",15.44,0.79,5.39249,top_100
+MEOH,Methanex Corporation,35.05,1.73,5.19208,top_100
+CLS,Celestica Inc.,127.69,6.18,5.086,top_100
+WBD,"Warner Bros. Discovery, Inc.",10.51,0.5,4.995,top_100
+ADMA,"ADMA Biologics, Inc.",21.87,1.01,4.8418,top_100
+BSBR,Banco Santander (Brasil) S.A.,5.45,0.25,4.80769,top_100
+SOFI,"SoFi Technologies, Inc.",15.06,0.67,4.65601,top_100
+RGTI,"Rigetti Computing, Inc.",12.52,1.28,11.3879,most_active
+NVDA,NVIDIA Corporation,142.83,-1.12,-0.778045,most_active
+INTC,Intel Corporation,20.68,-1.428,-6.4592,most_active
+QUBT,Quantum Computing Inc.,18.97,3.84,25.38,most_active
+TSLA,"Tesla, Inc.",326.43,0.339996,0.104265,most_active
+LCID,"Lucid Group, Inc.",2.18,-0.00999999,-0.456621,most_active
+F,Ford Motor Company,10.66,0.0599995,0.566033,most_active
+PLTR,Palantir Technologies Inc.,136.39,3.58,2.69558,most_active
+QBTS,D-Wave Quantum Inc.,16.53,-0.4,-2.36267,most_active
+NU,Nu Holdings Ltd.,12.76,0.79,6.59983,most_active
+SOFI,"SoFi Technologies, Inc.",15.06,0.67,4.65601,most_active
+GRAB,Grab Holdings Limited,4.73,0.0500002,1.06838,most_active
+AAL,American Airlines Group Inc.,11.06,-0.78,-6.58784,most_active
+OKLO,Oklo Inc.,68.03,15.49,29.4823,most_active
+AAPL,Apple Inc.,198.78,-3.89,-1.91938,most_active
+WBD,"Warner Bros. Discovery, Inc.",10.51,0.5,4.995,most_active
+BBD,Banco Bradesco S.A.,2.97,0.11,3.84616,most_active
+HBAN,Huntington Bancshares Incorporated,16.09,-0.219999,-1.34886,most_active
+ACHR,Archer Aviation Inc.,12.17,0.79,6.942,most_active
+IONQ,"IonQ, Inc.",39.7,-0.0400009,-0.100657,most_active
+RIG,Transocean Ltd.,3.2,0.12,3.89611,most_active
+PCG,PG&E Corporation,14.39,-0.4,-2.70453,most_active
+APLD,Applied Digital Corporation,12.05,-0.429999,-3.44551,most_active
+JOBY,"Joby Aviation, Inc.",9.63,0.190001,2.01272,most_active
+BAC,Bank of America Corporation,44.73,-0.360001,-0.798405,most_active
+ATUS,"Altice USA, Inc.",2.21,-0.00999999,-0.45045,trending
+JBLU,JetBlue Airways Corporation,4.86,-0.18,-3.57143,trending
+KOS,Kosmos Energy Ltd.,2.13,0.13,6.50001,trending
+DOLE,Dole plc,13.81,0.0900002,0.655978,trending
+AVIR,"Atea Pharmaceuticals, Inc.",3.175,-0.0450001,-1.39752,trending
+LAC,Lithium Americas Corp.,2.76,0.0,0.0,trending
+SONO,"Sonos, Inc.",10.08,-0.43,-4.09134,trending
+VMEO,"Vimeo, Inc.",4.44,-0.0799999,-1.76991,trending
+GPRO,"GoPro, Inc.",0.8603,0.00569999,0.666978,trending
+PBI,Pitney Bowes Inc.,10.45,-0.04,-0.381315,trending
+BFLY,"Butterfly Network, Inc.",2.52,-0.0899999,-3.44827,trending
+USA,Liberty All-Star Equity Fund,6.75,-0.0300002,-0.442481,trending
+PLYA,Playa Hotels & Resorts N.V.,13.5,0.0,0.0,trending
+ABCL,AbCellera Biologics Inc.,3.23,0.21,6.95364,trending
+CHGG,"Chegg, Inc.",1.57,0.0100001,0.641033,trending
+PGRE,"Paramount Group, Inc.",6.45,0.0,0.0,trending
+BMBL,Bumble Inc.,5.14,-0.0999999,-1.9084,trending
+NOVA,Sunnova Energy International Inc.,0.2202,0.0,0.0,trending
+BDN,Brandywine Realty Trust,4.51,-0.0499997,-1.09649,trending
+DBRG,"DigitalBridge Group, Inc.",10.63,-0.0500002,-0.468167,trending
+SHO,"Sunstone Hotel Investors, Inc.",8.9,-0.190001,-2.09021,trending
+YQ,17 Education & Technology Group Inc.,2.05,-0.06400013,-3.027442,trending
+STEM,"Stem, Inc.",0.6043,-0.0278,-4.39803,trending
+BKD,Brookdale Senior Living Inc.,6.95,-0.15,-2.11268,trending
+CIM,Chimera Investment Corporation,13.89,-0.0199995,-0.143778,trending

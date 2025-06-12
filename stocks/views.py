@@ -10,80 +10,81 @@ import threading
 filter_applied = False
 list_cat = "top"
 filter_cat = None
+data_generated = False
 
-def get_data():
-    # List of selected symbols to fetch
-    symbols = [
-        "AAPL", "MSFT", "AMZN", "GOOGL", "TSLA", "JPM", "XOM", "UNH", "V", "NVDA",
-        "CVX", "PFE", "BAC", "WFC", "META", "T", "INTC", "HD", "C", "KO"
-    ]
 
-    # Allowed categories and mapping
-    ALLOWED_CATEGORIES = ['technology', 'energy', 'healthcare', 'real estate', 'financial services']
-    CATEGORY_MAP = {
-        'technology': 'tech',
-        'energy': 'energy',
-        'healthcare': 'healthcare',
-        'real estate': 'real estate',
-        'financial services': 'finance',
-    }
+def generate_data(d):
+    response = yf.screen(d)
+    symbols,names,current_price,price_change,percent_change = [], [],[],[],[]
+    for data in response['quotes']:
+        symbols.append(data['symbol'])
+        names.append(data['longName'])
+        current_price.append(data['regularMarketPrice'])
+        price_change.append(data['regularMarketChange'])
+        percent_change.append(data['regularMarketChangePercent'])
+    data_dict = {"symbol":symbols,
+                 "name":names,
+                 "current_price":current_price,
+                 "price_change":price_change,
+                 "percent_change":percent_change}
+    return pd.DataFrame(data_dict)
 
-    final_data = []
-    print("Fetching data from Yahoo Finance...")
+def create_data():
+    global data_generated
+    print("Fetching Data")
 
-    for symbol in symbols:
-        try:
-            stock = yf.Ticker(symbol)
-            info = stock.info
+    top_100 = generate_data('day_gainers')
+    print("Data Generated:top100")
 
-            name = info.get("longName") or info.get("shortName") or "N/A"
-            price = info.get("currentPrice")
-            previous_close = info.get("previousClose")
-            change = round((price - previous_close), 2) if price and previous_close else None
-            sector = info.get("sector", "").lower()
+    most_active = generate_data('most_actives')
+    print("Data Generated:most_active")
 
-            category = CATEGORY_MAP.get(sector)
-            if category:
-                final_data.append({
-                    "symbol": symbol,
-                    "name": name,
-                    "price": price,
-                    "change": change,
-                    "category": category,
-                    "list_type": "top100"  # You can modify this dynamically
-                })
+    trend = generate_data('aggressive_small_caps')
+    print("Data Generated:trend")
 
-        except Exception as e:
-            print(f"Failed to fetch {symbol}: {e}")
-            continue
+    if not "list_type" in top_100.columns:
+        top_100["list_type"] = ["top_100" for i in range(len(top_100['symbol'].to_list()))]
+    if not "list_type" in most_active.columns:
+        most_active["list_type"] = ["most_active" for i in range(len(most_active['symbol'].to_list()))]
+    if not "list_type" in trend.columns:
+        trend["list_type"] = ["trending" for i in range(len(trend['symbol'].to_list()))]
 
-    df = pd.DataFrame(final_data)
-    df.to_csv('data.csv', index=False)
-    print("Data saved to data.csv")
-def start_data_fetch():
-    thread = threading.Thread(target=get_data)
-    thread.daemon = True
-    thread.start()
+
+    full_df_lst = [top_100,most_active,trend]
+    full_df = pd.concat(full_df_lst)
+    full_df.to_csv("data.csv",index=False)
+    data_generated = True
+    print("Data Generated and Saved.")
+
 def home(request):
-    global filter_applied, filter_cat, list_cat
-    df = None
-    table_data = None
-    columns = []
-    if not os.path.exists("data.csv"):
-        start_data_fetch()
-    if os.path.exists("data.csv"):
-        df = pd.read_csv("data.csv")
-        if not df.empty:
-            table_data = df.to_dict(orient='records')
-            columns = list(df.columns)
+    global filter_applied, filter_cat, list_cat,data_generated
+
+    if not os.path.exists('data.csv'):
+        data_generated = False
+        threading.Thread(target=create_data).start()
+    else:
+        data_generated = True
+
     if request.user.is_authenticated:
-        context = {
-            "filter_applied": filter_applied,
-            "filter": filter_cat,
-            "list": list_cat,
-            "table_data": table_data,
-            "columns": columns
-        }
+        if not data_generated:
+            context = {
+                "filter_applied": filter_applied,
+                "filter": filter_cat,
+                "list": list_cat,
+                "data_availabe":data_generated,
+            }
+        else:
+            print("data exists")
+            print(data_generated)
+            df = pd.read_csv("data.csv")
+            table_data = df.to_dict(orient='records')
+            context = {
+                "filter_applied": filter_applied,
+                "filter": filter_cat,
+                "list": list_cat,
+                "data_availabe":data_generated,
+                "stocks":table_data
+            }
         return render(request, 'home.html', context)
     else:
         return HttpResponse("Please Login/Signup")
@@ -98,8 +99,8 @@ def search(request):
                 "filter_applied": filter_applied,
                 "filter": filter_cat,
                 "list": list_cat,
-                "query": query
-            }
+                "query": query,
+                "data_availabe":data_generated}
             return render(request, 'home.html', context)
     else:
         return HttpResponse("Please Login/Signup")

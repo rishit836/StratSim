@@ -131,37 +131,51 @@
     </div>
 
     <div class="divider"></div>
-    <div class="table-container">
-    {% if table_data %}
-        <table class="stock-table">
-            <thead>
-                <tr>
-                    {% for col in columns %}
-                        <th>{{ col|capfirst }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in table_data %}
-                    <tr>
-                        {% for col in columns %}
-                            <td>{{ row|get_item:col }}</td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <div class="loading">
-            <div class="spinner"></div>
-            <span>Loading data...</span>
-        </div>
-        <script>
-    setTimeout(function() {
-        window.location.reload();
-    }, 10000); // Refresh every 2 seconds
-</script>
-    {% endif %}
+     {% if data_availabe %}
+<div class="table-scroll-wrapper">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Change</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in stocks %}
+            <tr>
+                <td>{{stock.symbol}}</td>
+                <td>{{stock.name}}</td>
+                <td>{{stock.current_price}}</td>
+                <td>{{stock.percent_change}}</td>
+                <td>{{stock.list_type}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 
+        
+    {% else %}
+<div class="loading-container">
+    <div class="loading-text">
+        <h6>loading data please wait</h6>
+    </div>
+    <div class="loader">
+        </div>
+</div>
+
+     {% endif %}
+{% if not data_availabe %}
+
+<script>
+    setTimeout(function () {
+        window.location.reload();
+    }, 2000);
+</script>
+
+    
+{% endif %}
     {% endblock body %}
