@@ -146,11 +146,11 @@
         <tbody>
             {% for stock in stocks %}
             <tr>
-                <td>{{stock.symbol}}</td>
-                <td>{{stock.name}}</td>
-                <td>{{stock.current_price}}</td>
-                <td>{{stock.percent_change}}</td>
-                <td>{{stock.list_type}}</td>
+                <td><span>{{stock.symbol}}</span></td>
+                <td><span class="details">{{stock.name}}</span></td>
+                <td><span class="details">{{stock.current_price}}</span></td>
+                <td><span class="details">{{stock.percent_change}}</span></td>
+                <td><span class="details">{{stock.list_type}}</span></td>
             </tr>
             {% endfor %}
         </tbody>

@@ -188,12 +188,15 @@
 
 /* Table wrapper for scroll */
 .table-scroll-wrapper {
-    max-height: 480px; /* Adjust height as needed */
+    max-height: 400px; 
     overflow-y: auto;
     border-radius: 12px;
     margin-top: 20px;
     background: #181e15;
-    /* box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10); */
+    margin-bottom: 100px;
+    /* border-bottom: rgba(0,0,0,.5) 8px solid; */
+    box-shadow: 0px 2px #232b1e;
+   
 }
 
 /* Custom scrollbar for dark theme */
@@ -236,10 +239,19 @@
 
 .data-table tbody td {
     padding: 6px 12px;
-    font-weight: 500;
-    color: #fff;
+    font-weight: 200;
+    color: #f2fcf0;
     border-bottom: 1px solid #232b1e;
+    /* border: 1px solid #232b1e;; */
     vertical-align: middle;
+    background-color: #131712;
+}
+
+
+
+.data-table tbody td .details{
+    color: #5c6759;
+
 }
 
 .data-table tbody tr:last-child td {
@@ -251,10 +263,15 @@
     white-space: nowrap;
 }
 
-.data-table tr:nth-child(even) {
-    background: #20271b;
-}
 
 .data-table tr:hover {
-    background: #232b1e;
+    background-color: rgba(255,255,255,.4);
 }
+
+.data-table tbody td:last-child {
+    border-right: 1px solid #232b1e;
+}
+.data-table tbody td:first-child {
+    border-left: 1px solid #232b1e;
+}
+

@@ -11,6 +11,11 @@ filter_applied = False
 list_cat = "top"
 filter_cat = None
 data_generated = False
+cat_map = {
+    "top":"TOP 100",
+    "mostactive":"MOST ACTIVE",
+    "trend":"TRENDING"
+}
 
 
 def generate_data(d):
@@ -43,11 +48,11 @@ def create_data():
     print("Data Generated:trend")
 
     if not "list_type" in top_100.columns:
-        top_100["list_type"] = ["top_100" for i in range(len(top_100['symbol'].to_list()))]
+        top_100["list_type"] = ["TOP 100" for i in range(len(top_100['symbol'].to_list()))]
     if not "list_type" in most_active.columns:
-        most_active["list_type"] = ["most_active" for i in range(len(most_active['symbol'].to_list()))]
+        most_active["list_type"] = ["MOST ACTIVE" for i in range(len(most_active['symbol'].to_list()))]
     if not "list_type" in trend.columns:
-        trend["list_type"] = ["trending" for i in range(len(trend['symbol'].to_list()))]
+        trend["list_type"] = ["TRENDING" for i in range(len(trend['symbol'].to_list()))]
 
 
     full_df_lst = [top_100,most_active,trend]
@@ -57,7 +62,7 @@ def create_data():
     print("Data Generated and Saved.")
 
 def home(request):
-    global filter_applied, filter_cat, list_cat,data_generated
+    global filter_applied, filter_cat, list_cat,data_generated,cat_map
 
     if not os.path.exists('data.csv'):
         data_generated = False
@@ -77,6 +82,7 @@ def home(request):
             print("data exists")
             print(data_generated)
             df = pd.read_csv("data.csv")
+            df = df.loc[df['list_type'] == cat_map[list_cat]]
             table_data = df.to_dict(orient='records')
             context = {
                 "filter_applied": filter_applied,
