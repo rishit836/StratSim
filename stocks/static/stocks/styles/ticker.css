@@ -1,0 +1,179 @@
+.data-container{
+    display: flex;
+    margin-left: 40px;;
+    margin-top: 30px;
+
+}
+.ticker-heading h3{
+    color: white;
+    font-size: 40px;
+    font-weight: 350;
+    margin-top: 40px;
+    
+}
+.ticker-heading a{
+    color: white;
+    font-size: 40px;
+    font-weight: 350;
+    margin-top: 40px;
+    text-decoration: none;
+    transition: all .2s ease-out;
+}
+.ticker-heading a:hover{
+    color: rgb(196, 221, 238);
+    /* text-decoration: underline; */
+}
+.ticker-heading .subtext{
+    font-size: .8rem;
+    font-weight: 400;
+    color: #889783;
+}
+.ticker-heading .greet{
+    font-size: 1.3rem;
+    font-weight: 200;
+    color: white;
+}
+.ticker-heading h1{
+    font-weight: 500;
+}
+
+/* Right Menu CSS */
+.page-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Table wrapper for scroll */
+.table-scroll-wrapper {
+    max-height: 400px; 
+    overflow-y: auto;
+    border-radius: 12px;
+    margin-top: 80px;
+    background: #181e15;
+    margin-bottom: 100px;
+    /* border-bottom: rgba(0,0,0,.5) 8px solid; */
+    box-shadow: 0px 2px #232b1e;
+    margin-right: 10vw;
+   
+}
+
+/* Custom scrollbar for dark theme */
+.table-scroll-wrapper::-webkit-scrollbar {
+    width: 10px;
+    
+}
+.table-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: #293028;
+    border-radius: 8px;
+}
+.table-scroll-wrapper::-webkit-scrollbar-track {
+    background: rgba(0,0,0,.6);
+    border-radius: 8px;
+}
+
+/* Table styles */
+.order-book {
+    /* width: 20%; */
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #181e15;
+    color: #fff;
+    font-family: "Manrope", sans-serif;
+    font-size: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+    min-width: 250px;
+}
+
+.order-book thead th {
+    background: rgba(31, 37, 29,.8);
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    padding: 8px 12px;
+    border-bottom: 2px solid #2e382b;
+    letter-spacing: 0.02em;
+
+}
+
+.order-book tbody td {
+    padding: 6px 12px;
+    font-weight: 200;
+    color: #f2fcf0;
+    border-bottom: 1px solid #232b1e;
+    /* border: 1px solid #232b1e;; */
+    vertical-align: middle;
+    background-color: #131712;
+}
+
+
+
+.order-book tbody td .details{
+    color: #5c6759;
+
+}
+
+.order-book tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.order-book th, .order-book td {
+    text-align: center;
+    white-space: no-wrap;
+}
+
+
+
+
+.order-book tbody td:last-child {
+    border-right: 1px solid #232b1e;
+}
+.order-book tbody td:first-child {
+    border-left: 1px solid #232b1e;
+}
+
+
+.ticker-menu{
+    /* border: 2px solid black; */
+    min-height: 300px;
+    display: flex;
+    flex-direction: row;
+
+}
+.buy-menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px dashed black; */
+    width: 50%;
+}
+.data-menu{
+    /* border: 2px dashed red; */
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    padding: 10px 10px;
+}
+.stats{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    padding: 10px 50px;
+    background-color: rgba(0, 0, 0, .5);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 300;
+    font-size: 1.5rem;
+    flex-direction: column;
+}
+.stats .heading{
+    font-weight: 500;
+    font-size: 2rem;
+}

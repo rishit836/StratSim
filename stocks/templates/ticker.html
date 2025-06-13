@@ -1,0 +1,155 @@
+{% extends "layout.html" %} 
+{% load static %} 
+{% load custom_filters %}
+{% block pagename %}{{ticker}}{%endblock pagename %} 
+{% block header %}
+
+<link rel="stylesheet" href="{% static 'stocks/styles/ticker.css' %}" />
+{% endblock header %} 
+{% block body %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="page-container">
+  <div class="data-container">
+    <div class="ticker-heading">
+      <h1>MarketPlace</h1>
+      <div class="greet">
+        Welcome To MarketPlace
+        <span style="text-decoration: underline">{{request.user|lower}}</span>
+      </div>
+      <h3>
+        <a
+          href="https://www.google.com/search?q={{ticker|upper}}"
+          target="_blank"
+          >{{ticker|upper}}</a
+        >
+      </h3>
+      <div class="subtext">Simulate a Buy using Virtual Funds.</div>
+    <div class="ticker-menu">
+    <div class="data-menu">
+        <!-- {% for stock in data %}
+        {{stock.Open}} <br>
+          
+        {% endfor %} -->
+        <canvas id="stockChart" width="600" height="300"></canvas>
+
+<script>
+fetch("{% url 'stocks:stock-data' %}")
+  .then(response => response.json())
+  .then(data => {
+    const ctx = document.getElementById('stockChart').getContext('2d');
+
+    // Create gradient fill like second chart
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(144, 238, 144, 0.5)');  // Light green top
+    gradient.addColorStop(1, 'rgba(144, 238, 144, 0.05)'); // Transparent bottom
+
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: data.labels,
+        datasets: [{
+          label: 'Stock Price',
+          data: data.values,
+          borderColor: 'lightgreen',
+          backgroundColor: gradient,
+          fill: true,         // 👈 enables area fill
+          tension: 0.5,       // 👈 curve smoothing
+          pointRadius: 0,     // 👈 hide points for smooth look
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { display: false },  // optional: hide legend for minimal look
+        },
+        animations: {
+          tension: {
+            duration: 1000,
+            easing: 'linear',
+            from: .6,
+            to: .4,
+            loop: true
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: '#a0a0a0',
+              font: {
+                size: 10,
+              },
+              maxRotation: 0,
+              autoSkip: true,
+              maxTicksLimit: 7, // 👈 match "Day 1", "Day 5", etc.
+            },
+            grid: {
+              display: false
+            }
+          },
+          y: {
+            display: false
+          }
+        }
+      }
+    });
+  });
+</script>
+    </div>
+    <div class="stats">
+      <div class="heading">
+        Stock Data
+      </div>
+      date:{{ data|last|get_item:"Date" }} <br>
+      Open:{{ data|last|get_item:"Open" }}<br>
+      Close:{{ data|last|get_item:"Close" }}<br>
+      High:{{ data|last|get_item:"High" }}<br>
+      Low:{{ data|last|get_item:"Low" }}<br>
+    </div>
+    <div class="buy-menu">
+        <h1>Stock Buy Menu</h1>
+    </div>
+    
+</div>
+    </div>
+
+
+
+
+  </div>
+
+  <div class="right-menu">
+    <div class="table-scroll-wrapper">
+      <table class="order-book">
+        <thead>
+          <tr>
+            <th>Price</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>150$</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>114$</td>
+            <td>4</td>
+          </tr>
+          <tr>
+            <td>163$</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>123$</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>156$</td>
+            <td>8</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+  {% endblock body %}
+

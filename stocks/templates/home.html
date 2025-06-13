@@ -146,7 +146,9 @@
         <tbody>
             {% for stock in stocks %}
             <tr>
-                <td><span>{{stock.symbol}}</span></td>
+                <td>
+                    <a href="{% url 'stocks:ticker' stock.symbol %}"><span></span>{{stock.symbol}}</span></a>
+                    </td>
                 <td><span class="details">{{stock.name}}</span></td>
                 <td><span class="details">{{stock.current_price}}</span></td>
                 <td><span class="details">{{stock.percent_change}}</span></td>

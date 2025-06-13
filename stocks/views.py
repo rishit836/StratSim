@@ -5,6 +5,10 @@ import pandas as pd
 import yfinance as yf
 import os
 import threading
+from django.core.cache import cache
+from django.http import JsonResponse
+from django.urls import reverse
+import random
 
 # Global flags
 filter_applied = False
@@ -16,6 +20,15 @@ cat_map = {
     "mostactive":"MOST ACTIVE",
     "trend":"TRENDING"
 }
+
+def get_chart_data(ticker):
+    ticker = yf.Ticker(ticker)
+    d = ticker.history(period='1mo')
+    d['Date'] = d.index
+    d['Date'] = d['Date'].dt.tz_convert('Asia/Kolkata').dt.strftime('%d/%m/%Y')
+    d.reset_index(drop=True,inplace=True)
+    cache.set('data_dict',d,timeout=60*60*24)
+    return d
 
 
 def generate_data(d):
@@ -61,9 +74,14 @@ def create_data():
     data_generated = True
     print("Data Generated and Saved.")
 
+def search_start():
+    d = get_chart_data("NVDA")
+    cache.set('data_dict',d,timeout=60*60*24)
+    print("data set in cache")
+
 def home(request):
     global filter_applied, filter_cat, list_cat,data_generated,cat_map
-
+    threading.Thread(target=search_start).start()
     if not os.path.exists('data.csv'):
         data_generated = False
         threading.Thread(target=create_data).start()
@@ -71,6 +89,7 @@ def home(request):
         data_generated = True
 
     if request.user.is_authenticated:
+        request.session['test_cache'] = "string"
         if not data_generated:
             context = {
                 "filter_applied": filter_applied,
@@ -97,19 +116,21 @@ def home(request):
 
 def search(request):
     global filter_applied, filter_cat, list_cat
-    if request.user.is_authenticated:
-        if request.method == "GET":
-            query = request.GET.get('q')
-            print("Query on stocks:", query)
-            context = {
-                "filter_applied": filter_applied,
-                "filter": filter_cat,
-                "list": list_cat,
-                "query": query,
-                "data_availabe":data_generated}
-            return render(request, 'home.html', context)
-    else:
-        return HttpResponse("Please Login/Signup")
+    query = request.GET.get('q')
+    return redirect(reverse('stocks:ticker', args=[query]))
+    # if request.user.is_authenticated:
+    #     if request.method == "GET":
+    #         query = request.GET.get('q')
+    #         print("Query on stocks:", query)
+    #         context = {
+    #             "filter_applied": filter_applied,
+    #             "filter": filter_cat,
+    #             "list": list_cat,
+    #             "query": query,
+    #             "data_availabe":data_generated}
+    #         return render(request, 'home.html', context)
+    # else:
+    #     return HttpResponse("Please Login/Signup")
 
 def filter_cat(request):
     global filter_applied, filter_cat, list_cat
@@ -125,3 +146,31 @@ def filter_cat(request):
         return redirect("stocks:market")
 
     return redirect("stocks:market")
+
+def stock_data(request):
+    ticker = cache.get('ticker')
+    if not ticker == cache.get("previous_ticker"):
+        print("New Ticker Data To be Loaded")
+        d = get_chart_data(ticker)
+        cache.set("previous_ticker", ticker,timeout=60*60*24)
+        d['Date'] = d.index
+        d['Date'] = d['Date'].dt.tz_convert('Asia/Kolkata').dt.strftime('%d/%m/%Y')
+        d.reset_index(drop=True,inplace=True)
+        cache.set('data_dict',d,timeout=60*60*24)
+        data = {
+            # "price": 150.25,
+            # "change_percent": 2.5,
+            "labels": d['Date'].to_list(),
+            "values": d['Close'].to_list()
+        }
+        cache.set("chart-data",data,timeout=60*60*24)
+        return JsonResponse(data)
+    else:
+        print("Previous Data")
+
+        return JsonResponse(cache.get("chart-data"))
+
+def ticker(request,ticker):
+    cache.set("ticker",ticker,timeout=60*60*24)
+    context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records")}
+    return render(request, 'ticker.html',context)
