@@ -255,7 +255,18 @@
 
 
 .data-table tbody td .details{
-    color: #5c6759;
+    color: white;
+
+}
+
+.data-table tbody td .details.positive{
+    color: #91e081;
+    /* color: greenyellow; */
+
+}
+.data-table tbody td .details.negative{
+    color: #e08181;
+    /* color: red; */
 
 }
 

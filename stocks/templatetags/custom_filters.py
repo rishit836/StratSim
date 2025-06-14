@@ -3,4 +3,13 @@ register = template.Library()
 
 @register.filter
 def get_item(dictionary, key):
-    return dictionary.get(key, '')
+    val = dictionary.get(key, '')
+    if type(val) == float:
+        val = round(val,2)
+    return val
+
+@register.filter
+def round_(val,place):
+    if round(val,place) == int(val):
+        return int(val)
+    return round(val,place)

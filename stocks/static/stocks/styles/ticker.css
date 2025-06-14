@@ -163,7 +163,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: auto;
+    min-width: 300px;
     padding: 10px 50px;
     background-color: rgba(0, 0, 0, .5);
     border: none;
@@ -172,8 +172,25 @@
     font-weight: 300;
     font-size: 1.5rem;
     flex-direction: column;
+    margin-left: 20px;
+    margin-right: 20px;
+    
 }
 .stats .heading{
     font-weight: 500;
     font-size: 2rem;
+    margin-bottom: 15px;
+}
+.data-heading{
+    margin-top: 10px;
+    font-weight: 500;
+    color: white;
+    font-size: 1.2rem;
+
+}
+.data-value{
+    font-weight: 200;
+    color: white;
+    font-size: 1rem;
+
 }

@@ -140,7 +140,7 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Change</th>
-                <th>Category</th>
+                {% comment %} <th>Category</th> {% endcomment %}
             </tr>
         </thead>
         <tbody>
@@ -150,9 +150,15 @@
                     <a href="{% url 'stocks:ticker' stock.symbol %}"><span></span>{{stock.symbol}}</span></a>
                     </td>
                 <td><span class="details">{{stock.name}}</span></td>
-                <td><span class="details">{{stock.current_price}}</span></td>
-                <td><span class="details">{{stock.percent_change}}</span></td>
-                <td><span class="details">{{stock.list_type}}</span></td>
+                
+                <td><span class="details">$ {{stock.current_price|round_:2}}</span></td>
+                {% if stock.percent_change|round_:1 < 0 %}
+                <td><span class="details negative">{{stock.percent_change|round_:1}} %</span></td>
+                {% else %}
+                <td><span class="details positive">{{stock.percent_change|round_:1}} %</span></td>
+                {% endif %}
+                
+                {% comment %} <td><span class="details">{{stock.list_type}}</span></td> {% endcomment %}
             </tr>
             {% endfor %}
         </tbody>

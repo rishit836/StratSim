@@ -8,6 +8,7 @@ import threading
 from django.core.cache import cache
 from django.http import JsonResponse
 from django.urls import reverse
+from .operations import delete_if_outdated
 import random
 
 # Global flags
@@ -78,6 +79,7 @@ def create_data():
 
 def home(request):
     global filter_applied, filter_cat, list_cat,data_generated,cat_map
+    delete_if_outdated('data.csv')
     if not os.path.exists('data.csv'):
         data_generated = False
         threading.Thread(target=create_data).start()
@@ -94,8 +96,6 @@ def home(request):
                 "data_availabe":data_generated,
             }
         else:
-            print("data exists")
-            print(data_generated)
             df = pd.read_csv("data.csv")
             df = df.loc[df['list_type'] == cat_map[list_cat]]
             table_data = df.to_dict(orient='records')
@@ -137,7 +137,7 @@ def ticker(request,ticker):
     global data_loaded
     if cache.get("previous_ticker") != ticker:
         data_loaded = False
-        print("Loading Data")
+
         cache.set("ticker", ticker,timeout=60*60*24)
         return redirect('stocks:load')
     else:

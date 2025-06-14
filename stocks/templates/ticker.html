@@ -18,7 +18,7 @@
       </div>
       <h3>
         <a
-          href="https://www.google.com/search?q={{ticker|upper}}"
+          href="https://www.google.com/search?q=stock:{{ticker|upper}}"
           target="_blank"
           >{{ticker|upper}}</a
         >
@@ -53,7 +53,7 @@ fetch("{% url 'stocks:stock-data' %}")
           borderColor: 'lightgreen',
           backgroundColor: gradient,
           fill: true,         // 👈 enables area fill
-          tension: 0.5,       // 👈 curve smoothing
+          tension:1,       // 👈 curve smoothing
           pointRadius: 0,     // 👈 hide points for smooth look
         }]
       },
@@ -63,10 +63,10 @@ fetch("{% url 'stocks:stock-data' %}")
         },
         animations: {
           tension: {
-            duration: 1000,
+            duration: 2300,
             easing: 'linear',
-            from: .6,
-            to: .4,
+            from: .7,
+            to: .3,
             loop: true
           }
         },
@@ -98,11 +98,42 @@ fetch("{% url 'stocks:stock-data' %}")
       <div class="heading">
         Stock Data
       </div>
-      date:{{ data|last|get_item:"Date" }} <br>
-      Open:{{ data|last|get_item:"Open" }}<br>
-      Close:{{ data|last|get_item:"Close" }}<br>
-      High:{{ data|last|get_item:"High" }}<br>
-      Low:{{ data|last|get_item:"Low" }}<br>
+
+      <span class="data-heading">
+      Date: 
+      </span>
+      <span class="data-value">
+      {{data|last|get_item:"Date" }}
+      </span>
+
+      <span class="data-heading">
+      Open: 
+      </span>
+      <span class="data-value">
+      {{data|last|get_item:"Open" }}
+      </span>
+
+      <span class="data-heading">
+      Close: 
+      </span>
+      <span class="data-value">
+      {{data|last|get_item:"Close" }}
+      </span>
+
+      <span class="data-heading">
+      High: 
+      </span>
+      <span class="data-value">
+      {{data|last|get_item:"High" }}
+      </span>
+
+      <span class="data-heading">
+      Low: 
+      </span>
+      <span class="data-value">
+      {{data|last|get_item:"Low" }}
+      </span>
+
     </div>
     <div class="buy-menu">
         <h1>Stock Buy Menu</h1>
