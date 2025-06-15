@@ -142,13 +142,7 @@
     flex-direction: row;
 
 }
-.buy-menu{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* border: 2px dashed black; */
-    width: 50%;
-}
+
 .data-menu{
     /* border: 2px dashed red; */
     width: 50%;
@@ -163,7 +157,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 300px;
+    min-width: 400px;
     padding: 10px 50px;
     background-color: rgba(0, 0, 0, .5);
     border: none;
@@ -193,4 +187,126 @@
     color: white;
     font-size: 1rem;
 
+}
+
+.buy-menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px dashed black; */
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 50%;
+    min-width: 300px;
+    padding: 10px 50px;
+    background-color: rgba(0, 0, 0, .5);
+    border: none;
+    border-radius: 7px;
+}
+.buy-menu .heading{
+    font-weight: 500;
+    font-size: 2rem;
+
+}
+.buy-menu .first-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    height: 56px; /* Increased height */
+    background-color: rgba(0,0,0,.3);
+    border: none;
+    border-radius: 18px; /* Slightly more rounded */
+    overflow: hidden;
+    align-items: center; /* Vertically center buttons */
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10); /* Optional: subtle shadow */
+    flex-direction: row;
+
+}
+
+.buy-menu .first-container button {
+    background-color: rgba(255,255,255,0);
+    border: none;
+    color: #93a28e;
+    border-radius: 0;
+    min-height: 48px; /* Increased min height */
+    padding: 0 36px;  /* More horizontal padding */
+    font-size: 1.rem; /* Larger font */
+    font-weight: 400;  /* Slightly bolder */
+    width: 100%;
+    transition: color .4s, background-color .4s;
+    z-index: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* flex-wrap:wrap; */
+
+}
+
+/* First button: round left side */
+.buy-menu .first-container button:first-child {
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+}
+
+/* Last button: round right side */
+.buy-menu .first-container button:last-child {
+    border-top-right-radius: 14px;
+    border-bottom-right-radius: 14px;
+}
+
+/* Active/hovered button: highlight, but no inside radius */
+.buy-menu .first-container button:hover,
+.buy-menu .first-container button.active {
+    color: white;
+    background-color: rgba(255,255,255,.1);
+    z-index: 2;
+}
+
+/* Remove radius on inside edges for active/hovered */
+.buy-menu .first-container button:not(:first-child):hover,
+.buy-menu .first-container button:not(:first-child).active {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.buy-menu .first-container button:not(:last-child):hover,
+.buy-menu .first-container button:not(:last-child).active {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+}
+.input-container{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 15px;
+}
+.input-container .label{
+    font-weight: 200;
+    font-size: 1.2rem;
+    margin-bottom: 14px;;
+}
+
+.input-container .input{
+    border: none;
+    border-radius:9px;
+    margin-bottom: 15px;
+    background-color: rgba(45, 55, 42,.5);
+    color: white;
+    text-align: center;
+}
+.input-container input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.input-container .execute{
+    border: none;
+    border-radius: 9px;
+    background-color: #53d22c;
+    margin-top: 15px;;
 }

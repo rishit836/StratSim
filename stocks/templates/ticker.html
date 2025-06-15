@@ -136,8 +136,39 @@ fetch("{% url 'stocks:stock-data' %}")
 
     </div>
     <div class="buy-menu">
-        <h1>Stock Buy Menu</h1>
+        <div class="heading">
+        Buy Menu
+      </div>
+      <div class="container">
+      <label for="mode">Trade Mode:</label>
+        <form action="{% url 'stocks:ticker' ticker %}">
+        <div class="first-container">
+          
+        {% if mode == "buy" %}
+        <button type="submit" value="buy" name="modebutton" class="active">Buy</button>
+        {% else %}
+        <button type="submit" value="buy" name="modebutton">Buy</button>
+        {% endif %}
+
+        {% if mode == "sell" %}
+        <button type="submit" value="sell" name="modebutton" class="active">Sell</button>
+        {% else %}
+        <button type="submit" value="sell" name="modebutton">Sell</button>
+        {% endif %}
+        </div>
+        
+        <div class="input-container">
+          <label for="quantity" class="label">quantity</label>
+          <input type="number" name="quantity" class="input">
+          <button type="submit" class="execute" name="execute" value="execute">Execute Trade</button>
+        </div>
+        
+        </form>
+        
+        </div>
+        
     </div>
+    
     
 </div>
     </div>

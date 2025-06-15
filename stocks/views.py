@@ -9,6 +9,7 @@ from django.core.cache import cache
 from django.http import JsonResponse
 from django.urls import reverse
 from .operations import delete_if_outdated
+from .trade import execute_trade
 import random
 
 # Global flags
@@ -21,6 +22,9 @@ cat_map = {
     "mostactive":"MOST ACTIVE",
     "trend":"TRENDING"
 }
+
+
+
 
 def get_chart_data(ticker):
     ticker = yf.Ticker(ticker)
@@ -78,6 +82,7 @@ def create_data():
 
 
 def home(request):
+    
     global filter_applied, filter_cat, list_cat,data_generated,cat_map
     delete_if_outdated('data.csv')
     if not os.path.exists('data.csv'):
@@ -141,7 +146,21 @@ def ticker(request,ticker):
         cache.set("ticker", ticker,timeout=60*60*24)
         return redirect('stocks:load')
     else:
-        context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records")}
+        if request.method == "GET":
+            if request.GET.get("modebutton") is not None:
+                request.session['buy-mode'] = request.GET.get("modebutton")
+            if request.GET.get("quantity") is not None:
+                request.session['quantity'] = request.GET.get("quantity")
+            if request.GET.get("execute") is not None:
+                ticker_symbol = cache.get('ticker')
+                quantity = request.session['quantity']
+                action = request.session['buy-mode']
+                execute_trade(request, request.user, ticker_symbol, action, quantity)
+                
+
+
+
+        context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":request.session['buy-mode']}
         return render(request, 'ticker.html',context)
 
 
