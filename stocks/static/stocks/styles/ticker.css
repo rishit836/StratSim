@@ -310,3 +310,28 @@
     background-color: #53d22c;
     margin-top: 15px;;
 }
+
+.message-container{
+    display: flex;
+    width: auto;
+    margin-top: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.message-container .success{
+    text-align: center;
+    color: #53d22c;
+    padding: 10px 15px;
+    background-color: rgba(0,0,0,.6);
+    border: none;
+    border-radius: 7px;
+    max-width: 250px;
+}
+.message-container .error{
+    color: #e08181;
+    padding: 10px 15px;
+    background-color: rgba(0,0,0,.6);
+    border: none;
+    border-radius: 7px;
+}

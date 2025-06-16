@@ -32,13 +32,9 @@
             {{fc|round_:2}}%</div>
     </div>
     <div class="dashboard-card">
-        <div class="card-title">Total Return</div>
-        <div class="card-value">{{return|round_:2}}%</div>
-        <div class="card-change {{rv}}">
-            {% if rv == "positive" %}
-                +
-            {% endif %}
-            {{return_change|round_:2}}%</div>
+        <div class="card-title">Investment:</div>
+        <div class="card-value">$ {{invested_funds|round_:2}}</div>
+        <div class="card-change {{rv}}"><a href="{% url 'stocks:market' %}">view investments</a></div>
     </div>
     <div class="dashboard-card">
         <div class="card-title">Active Strategies</div>

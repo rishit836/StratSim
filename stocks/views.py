@@ -161,7 +161,11 @@ def ticker(request,ticker):
                 ticker_symbol = cache.get('ticker')
                 quantity = request.session['quantity']
                 action = request.session['buy-mode']
-                execute_trade(request, request.user, ticker_symbol, action, quantity)
+                state,message = execute_trade(request, request.user, ticker_symbol, action, quantity)
+                
+                context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":request.session['buy-mode'],"message":message,"state":state}
+
+                return render(request,'ticker.html',context=context)
                 
 
 

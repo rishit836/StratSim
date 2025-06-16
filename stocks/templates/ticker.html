@@ -162,6 +162,30 @@ fetch("{% url 'stocks:stock-data' %}")
           <input type="number" name="quantity" class="input">
           <button type="submit" class="execute" name="execute" value="execute">Execute Trade</button>
         </div>
+
+        {% if state %}
+        
+          
+          {% if message %}
+          <div class="message-container">
+            <span class="success">
+            {{message}}
+            </span>
+            </div>
+        {% endif %}
+
+            
+        {% else %}
+
+       {% if message %}
+          <div class="message-container">
+            <span class="error">
+            {{message}}
+            </span>
+            </div>
+        {% endif %}
+
+        {% endif %}
         
         </form>
         

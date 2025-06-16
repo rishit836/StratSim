@@ -2,13 +2,13 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from stocks.models import Portfolio,Strategy
+from stocks.models import Portfolio,Strategy,holding
 from django.db.models import Q
 
 # Create your views here.
 
 def PON(val):
-    if val>=0:
+    if val>0 or val == 0:
         return "positive"
     elif val<0:
         return "negative"
@@ -26,6 +26,11 @@ def home(request):
         return_change = portfolio.update_return_history()
         strategies = Strategy.objects.filter(user=request.user, is_active=True)
         current_return = portfolio.profit_loss_percent()
+        invested_funds = 0
+        holdings = holding.objects.filter(user=request.user)
+
+        for h in holdings:
+            invested_funds += h.quantity * h.current_price
     else:
         fund = 0
         portfolio = 0
@@ -43,7 +48,7 @@ def home(request):
         strat_change =  0
 
     
-    context = {'fund':"{:,}".format(fund), 'return':return_val, 'active_strats':active_strats, 'rv':PON(return_change), 'sv':PON(strat_change),'fv':PON(fund_change),"fc":fund_change,"return_change":return_change, "strat_change":strat_change}
+    context = {'fund':"{:,}".format(fund), 'return':return_val, 'active_strats':active_strats, 'rv':PON(return_change), 'sv':PON(strat_change),'fv':PON(fund_change),"fc":fund_change,"return_change":return_change, "strat_change":strat_change,"invested_funds":invested_funds}
 
     return render(request,'index.html',context)
 
