@@ -21,7 +21,7 @@ def home(request):
 
     if request.user.is_authenticated:
         portfolio = Portfolio.objects.get(user=request.user)
-        fund = portfolio.current_funds
+        fund = portfolio.total_value()
         fund_change = portfolio.profit_loss_percent()
         return_change = portfolio.update_return_history()
         strategies = Strategy.objects.filter(user=request.user, is_active=True)

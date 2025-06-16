@@ -146,7 +146,13 @@ def ticker(request,ticker):
         cache.set("ticker", ticker,timeout=60*60*24)
         return redirect('stocks:load')
     else:
+        try: 
+            if request.session["buy-mode"]:
+                print("exists")
+        except:
+            request.session["buy-mode"]="buy"
         if request.method == "GET":
+            
             if request.GET.get("modebutton") is not None:
                 request.session['buy-mode'] = request.GET.get("modebutton")
             if request.GET.get("quantity") is not None:
@@ -159,8 +165,11 @@ def ticker(request,ticker):
                 
 
 
+        if request.session['buy-mode'] is not None:
+            context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":request.session['buy-mode']}
+        else:
+            context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":'buy'}
 
-        context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":request.session['buy-mode']}
         return render(request, 'ticker.html',context)
 
 

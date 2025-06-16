@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% load static %}
+{% load custom_filters %}
 {% block pagename %}Home{% endblock pagename %}
 {% block header %} 
 <link rel="stylesheet" href='{% static "mainapp/styles/homepage.css" %}'>
@@ -28,16 +29,16 @@
             {% if fv == "positive" %}
                 +
             {% endif %}
-            {{fc}}%</div>
+            {{fc|round_:2}}%</div>
     </div>
     <div class="dashboard-card">
         <div class="card-title">Total Return</div>
-        <div class="card-value">{{return}}%</div>
+        <div class="card-value">{{return|round_:2}}%</div>
         <div class="card-change {{rv}}">
             {% if rv == "positive" %}
                 +
             {% endif %}
-            {{return_change}}%</div>
+            {{return_change|round_:2}}%</div>
     </div>
     <div class="dashboard-card">
         <div class="card-title">Active Strategies</div>
@@ -46,7 +47,7 @@
             {% if sv == "positive" %}
                 +
             {% endif %}
-            {{strat_change}}%</div>
+            {{strat_change|round_:2}}%</div>
     </div>
     </div>
     <div class="portfolio-container">

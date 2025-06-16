@@ -8,8 +8,8 @@ def execute_trade(request, user, ticker, action, quantity):
 
     try:
         current_price = Decimal(str(ticker_data.info['regularMarketPrice']))
-    except:
-        print("❌ Failed to fetch price")
+    except Exception as e:
+        print(f"❌ Failed to fetch price for {ticker}: {e}")
         return False
 
     total_cost = current_price * Decimal(quantity)
@@ -17,17 +17,16 @@ def execute_trade(request, user, ticker, action, quantity):
     try:
         portfolio = Portfolio.objects.get(user=user)
     except Portfolio.DoesNotExist:
-        print("❌ No portfolio")
+        print("❌ No portfolio found")
         return False
 
-    print(f"Before Trade: 💰 {portfolio.current_funds} | 📈 {portfolio.invested_amount}")
+    print(f"Before Trade: 💰 {portfolio.current_funds:.2f} | 📈 {portfolio.invested_amount:.2f}")
 
     if action.upper() == "BUY":
         if portfolio.current_funds < total_cost:
-            print("❌ Not enough funds")
+            print("❌ Not enough funds to buy")
             return False
 
-        # Proper get_or_create with defaults
         stock, created = holding.objects.get_or_create(
             user=user,
             ticker=ticker,
@@ -55,16 +54,19 @@ def execute_trade(request, user, ticker, action, quantity):
         try:
             stock = holding.objects.get(user=user, ticker=ticker)
         except holding.DoesNotExist:
-            print("❌ No holdings")
+            print("❌ No holdings to sell")
             return False
 
         if stock.quantity < quantity:
-            print("❌ Not enough shares")
+            print("❌ Not enough shares to sell")
             return False
 
         proceeds = current_price * quantity
+        cost_basis = stock.avg_buy_price * quantity
+        realized_pnl = proceeds - cost_basis
+
         portfolio.current_funds += proceeds
-        portfolio.invested_amount -= stock.avg_buy_price * quantity
+        portfolio.invested_amount -= cost_basis
 
         stock.quantity -= quantity
         stock.current_price = current_price
@@ -72,6 +74,12 @@ def execute_trade(request, user, ticker, action, quantity):
             stock.delete()
         else:
             stock.save()
+
+        print(f"💸 Realized PnL: ₹{realized_pnl:.2f}")
+
+    else:
+        print("❌ Invalid action")
+        return False
 
     # Log the transaction
     Transaction.objects.create(
@@ -86,9 +94,9 @@ def execute_trade(request, user, ticker, action, quantity):
     portfolio.update_return_history()
     portfolio.save()
 
-    print(f"✅ Trade executed: {action.lower()} {quantity} of {ticker} @ {current_price}")
-    print(f"💰 Current Funds: ₹{portfolio.current_funds}")
-    print(f"📈 Invested Amount: ₹{portfolio.invested_amount}")
+    print(f"✅ Trade executed: {action.lower()} {quantity} of {ticker} @ ₹{current_price}")
+    print(f"💰 Current Funds: ₹{portfolio.current_funds:.2f}")
+    print(f"📈 Invested Amount: ₹{portfolio.invested_amount:.2f}")
     print(f"📊 Return: {portfolio.previous_return_percent:.2f}%")
 
     return True
