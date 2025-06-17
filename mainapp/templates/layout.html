@@ -26,10 +26,10 @@
               <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'main:home' %}">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link {% if request.resolver_match.url_name == 'market' %}active{% endif %}" href="{% url 'stocks:market' %}" href="{% url "stocks:market" %}">Market</a>
+              <a class="nav-link {% if request.resolver_match.url_name == 'market' %}active{% endif %}" href="{% url 'stocks:market' %}" href="{% url 'stocks:market' %}">Market</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">Portfolio</a>
+              <a class="nav-link {% if request.resolver_match.url_name == 'portfolio' %}active{% endif %} " href="{% url 'main:portfolio' %}">Portfolio</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">About me</a>

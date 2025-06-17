@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block pagename %}Portfolio{% endblock pagename %}
+{% block header %}
+    <link rel="stylesheet" href="{% static 'mainapp/styles/portfolio.css' %}">
+{% endblock header %}
+
+{% block body %}
+    <div class="portfolio-container">
+        <div class="heading-container">
+            <h4 class="heading">Welcome
+                <span style="text-decoration:underline">{{request.user.username|lower}}</span>,
+            </h4>
+        </div>
+
+        <div class="portfolio">
+            <div class="portfolio-heading">
+                <h3 class="heading">Portfolio</h3>
+                <div class="subtext">view your investments and current holdings.</div>
+            </div>
+
+            
+            <div class="card-holder">
+                <div class="holding-card">
+                    <div class="card-title">
+                        <h4>
+                            Holdings
+                        </h4>
+                    </div>
+                    {% if holding_available %}
+                    <div class="card-value">
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Stock</th>
+                                    <th>Quanity</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                               
+                                {% for holding in holdings %}
+                                
+                                <td>
+                                {{holding|value_index:0}}
+                                </td>
+                                <td>
+                                {{holding|value_index:1}}
+                                </td>
+                                <td>
+                                {{holding|value_index:2}}
+                                </td>
+                                {% endfor %}
+                            </tr>
+                        </table>
+                         
+                    </div>
+
+                    {% else %}
+                                <div class="card-value">
+                                    <div class="text">
+                                    You Currently Dont Hold Any Shares.
+                                    </div>
+                                </div>
+                               {% endif %}
+
+                </div>
+                <div class="holding-card">
+ <div class="card-title">
+                        <h4>
+                            Investments Price
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock body %}
+

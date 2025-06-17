@@ -52,9 +52,10 @@ def execute_trade(request, user,ticker,action,quantity):
         # check if the user owns a holding of the stock or not
         try:
             stock = holding.objects.get(user=user, ticker=ticker)
+            
         except holding.DoesNotExist:
             print("No holding exist please buy first")
-            return False,"you dont any shares of the stock: "+ str(ticker)
+            return False,"you dont have any shares of the stock: "+ str(ticker)
         
         if stock.quantity < quantity:
             print("user doesnt own enough shares to sell")
@@ -68,6 +69,7 @@ def execute_trade(request, user,ticker,action,quantity):
         realized_pnl = proceeds - cost_basis
 
         # update the portfolio for the user to show the loss/profit made
+        portfolio.initial_funds = portfolio.current_funds
         portfolio.current_funds += proceeds
         portfolio.invested_amount -= cost_basis
 

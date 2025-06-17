@@ -1,0 +1,109 @@
+.portfolio-container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 16px;;
+    display:flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.heading-container{
+    margin-top: 30px;
+}
+
+.heading-container .heading{
+    font-family: "Manrope";
+    font-weight: 500;
+    color: #f1fdef;
+    margin:0;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.portfolio .portfolio-heading .heading{
+    font-family: "Manrope";
+    font-weight: bold;
+    color: #fff;
+    margin:0;
+}
+
+.portfolio .portfolio-heading .subtext{
+    margin-top: 4px;;
+    color: #bfc8b8;
+    font-size: 1rem;
+    font-weight:normal;
+}
+.portfolio .card-holder{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+}
+.portfolio .holding-card{
+    min-width: 250px;
+    min-height: 250px;
+    border: none;
+    border-radius: 7px;
+    background-color: rgba(0,0,0,.45);
+    margin-top: 30px;
+}
+.card-title{
+    width: 100%;
+    text-align: center;
+    margin-top: 8px;
+}
+.card-title h4{
+    font-weight: 200;
+}
+
+
+.card-value {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px;
+
+    min-height: 150px;
+
+
+}
+.card-value table thead th{
+    width: auto;
+    padding: 5px 5px;
+    text-align: center;
+    /* border-radius: 9px; */
+    border-bottom: 2px solid rgba(45, 55, 42,1);
+    background-color: rgb(45, 55, 42);
+    
+
+    
+}
+
+
+.card-value table{
+
+    width: 100%;
+    border: 2px solid rgba(45, 55, 42,1);
+    border-radius: 7px;
+    overflow: hidden;
+    border-collapse: separate;   /* <-- Important */
+    border-spacing: 0; 
+
+}
+
+.card-value table tr td{
+    text-align: center;
+    width: auto;
+    padding: 5px 5px;
+    border-radius: 9px;
+    font-weight: 200;
+
+
+}
+.card-value .text{
+    font-weight: 300;
+    width: 100%;
+    min-height: 100%;
+}
+

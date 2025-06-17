@@ -134,3 +134,12 @@
     }
 }
 
+.card-change a{
+    text-decoration: none;
+    color: white;
+    transition: all .2s ease-out;
+}
+.card-change a:hover{
+    text-decoration: none;
+    color: rgb(196, 221, 238);
+}

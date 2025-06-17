@@ -39,6 +39,7 @@ def home(request):
         return_change = 0
         strategies = 0
         current_return = 0
+        invested_funds = 0
 
     return_val = current_return
     if strategies:
@@ -89,3 +90,23 @@ def logout_view(request):
 
 def account(request):
     return render(request, 'account.html')
+
+def portfolio_view(request):
+    if request.user.is_authenticated:
+        user = request.user
+        holdings = holding.objects.filter(user=request.user)
+        data = []
+        
+        if holdings.exists():
+            for h in holdings:
+                val = []
+                val.append(h.ticker)
+                val.append(h.quantity)
+                val.append(h.current_price)
+                data.append(val)
+                print("holdings saved.")
+            holding_available = True
+        else:
+            holding_available = False
+        context = {"holdings":data,"holding_available":holding_available}
+    return render(request,'portfolio.html',context)

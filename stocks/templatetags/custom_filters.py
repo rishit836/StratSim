@@ -13,3 +13,7 @@ def round_(val,place):
     if round(val,place) == int(val):
         return int(val)
     return round(val,place)
+
+@register.filter
+def value_index(List, i):
+    return List[int(i)]
