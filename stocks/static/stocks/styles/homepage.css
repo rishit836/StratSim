@@ -3,6 +3,7 @@
     width: 1200px;;
     flex-direction: column;
     margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 
@@ -291,25 +292,13 @@
 .data-table tbody td:first-child {
     border-left: 1px solid #232b1e;
 }
-@media (max-width: 991.98px) {
+@media (max-width: 900px) {
 
-.category-container form {
+.market-container{
     display: flex;
-    width: 100%;
-    justify-content: space-around;
-    height: 56px; /* Increased height */
-    background-color: rgba(0,0,0,.3);
-    border: none;
-    border-radius: 18px; /* Slightly more rounded */
-    overflow: hidden;
-    align-items: center; /* Vertically center buttons */
-    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10); /* Optional: subtle shadow */
-    flex-direction: row;
-    justify-content: center;
-    flex-wrap:wrap;
-    justify-content: center;
-    overflow-y: auto;
-    min-height: 100px;
-
+    width: 900px;;
+    flex-direction: column;
+    margin: 0 auto;
+    flex-wrap: wrap;
 }
 }

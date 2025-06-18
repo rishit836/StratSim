@@ -135,6 +135,7 @@ fetch("{% url 'stocks:stock-data' %}")
       </span>
 
     </div>
+
     <div class="buy-menu">
         <div class="heading">
         Buy Menu
@@ -203,38 +204,31 @@ fetch("{% url 'stocks:stock-data' %}")
   </div>
 
   <div class="right-menu">
-    <div class="table-scroll-wrapper">
+
+    {% if data_available %}
+          <div class="table-scroll-wrapper">
       <table class="order-book">
         <thead>
           <tr>
+            <th>Ticker</th>
             <th>Price</th>
             <th>Quantity</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>150$</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>114$</td>
-            <td>4</td>
-          </tr>
-          <tr>
-            <td>163$</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>123$</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>156$</td>
-            <td>8</td>
-          </tr>
+        <tr>
+          <td>{{ticker}}</td>
+          <td>{{price}}</td>
+          <td>{{share_quantity}}</td>
+        </tr>
         </tbody>
       </table>
     </div>
+    {% else %}
+      
+    {% endif %}
+
+
   </div>
 </div>
   {% endblock body %}

@@ -38,6 +38,8 @@
     gap: 30px;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+    
 }
 .portfolio .holding-card{
     min-width: 250px;

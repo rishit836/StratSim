@@ -10,6 +10,8 @@ from django.http import JsonResponse
 from django.urls import reverse
 from .operations import delete_if_outdated
 from .trade import execute_trade
+from .models import holding
+
 import random
 
 # Global flags
@@ -140,6 +142,7 @@ def stock_data(request):
 
 def ticker(request,ticker):
     global data_loaded
+
     if cache.get("previous_ticker") != ticker:
         data_loaded = False
 
@@ -163,22 +166,26 @@ def ticker(request,ticker):
                 action = request.session['buy-mode']
                 state,message = execute_trade(request, request.user, ticker_symbol, action, quantity)
                 
-                context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":request.session['buy-mode'],"message":message,"state":state}
-
+                context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":request.session['buy-mode'],"message":message,"state":state,"data_available":cache.get('data_available'),"share_quantity":cache.get("share_quantity"),
+            "ticker":cache.get("ticker"),
+            "price":cache.get("price")}
                 return render(request,'ticker.html',context=context)
                 
 
 
         if request.session['buy-mode'] is not None:
-            context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":request.session['buy-mode']}
+            context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":request.session['buy-mode'],"data_available":cache.get('data_available'),"share_quantity":cache.get("share_quantity"),
+            "ticker":cache.get("ticker"),
+            "price":cache.get("price")}
         else:
-            context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":'buy'}
-
+            context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":'buy',"data_available":cache.get('data_available'),"share_quantity":cache.get("share_quantity"),
+            "ticker":cache.get("ticker"),
+            "price":cache.get("price")}
         return render(request, 'ticker.html',context)
 
 
 def background_loader():
-    global data_loaded
+    global data_loaded,loading_data
     t = cache.get("ticker")
     cache.set("previous_ticker",t,timeout=60*60*24)
     ticker = yf.Ticker(t)
@@ -194,10 +201,30 @@ def background_loader():
             "values": d['Close'].to_list()
         }
     cache.set("chart-data",data,timeout=60*60*24)
+    cache.set("data_available", False)
+    holdings = holding.objects.filter(user = r_l.user)
+    for h in holdings:
+        if h.ticker.lower() == cache.get("ticker").lower():
+            print("user owns", cache.get("ticker"))
+            cache.set("data_available",True)
+            cache.set("share_quantity", h.quantity)
+            cache.set("ticker", h.ticker)
+            cache.set("price", h.current_price)
     data_loaded = True
-    
+    loading_data=False
+
+
+
+            
+
+
+loading_data = False
 def load(request):
-    threading.Thread(target=background_loader).start()
+    global loading_data,r_l
+    r_l = request
+    if not loading_data:
+        threading.Thread(target=background_loader).start()
+        loading_data = True
     if not data_loaded:
         return render(request, 'loader.html')
     else:
