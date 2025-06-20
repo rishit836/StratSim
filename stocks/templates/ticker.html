@@ -199,13 +199,12 @@ fetch("{% url 'stocks:stock-data' %}")
     </div>
 
 
-
-
   </div>
 
   <div class="right-menu">
 
-    {% if data_available %}
+
+ {% if data_available %}
           <div class="table-scroll-wrapper">
       <table class="order-book">
         <thead>
@@ -227,6 +226,23 @@ fetch("{% url 'stocks:stock-data' %}")
     {% else %}
       
     {% endif %}
+
+
+    <div class="analysis-board">
+
+      
+
+      <div class="board-container">
+
+        <div class="title">
+          <h4>Analyze the Stock</h4>
+        </div>
+        <div class="content">
+          <!-- To Replace the URL to analysis PAge -->
+          <a href="{% url 'stocks:analyze' ticker %}">view detailed breakdown</a>
+        </div>
+      </div>
+    </div>
 
 
   </div>

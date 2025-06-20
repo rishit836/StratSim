@@ -165,7 +165,6 @@ def ticker(request,ticker):
                 quantity = request.session['quantity']
                 action = request.session['buy-mode']
                 state,message = execute_trade(request, request.user, ticker_symbol, action, quantity)
-                
                 context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":request.session['buy-mode'],"message":message,"state":state,"data_available":cache.get('data_available'),"share_quantity":cache.get("share_quantity"),
             "ticker":cache.get("ticker"),
             "price":cache.get("price")}
@@ -178,6 +177,7 @@ def ticker(request,ticker):
             "ticker":cache.get("ticker"),
             "price":cache.get("price")}
         else:
+           
             context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":'buy',"data_available":cache.get('data_available'),"share_quantity":cache.get("share_quantity"),
             "ticker":cache.get("ticker"),
             "price":cache.get("price")}
@@ -229,3 +229,10 @@ def load(request):
         return render(request, 'loader.html')
     else:
         return redirect(reverse('stocks:ticker', args=[cache.get("ticker")]))
+    
+
+
+def analyze(request,ticker):
+    print("ticker analysis started for ticker:", ticker)
+    c = {"ticker":ticker}
+    return render(request,"analyze.html",c)

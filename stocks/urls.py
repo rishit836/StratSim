@@ -9,5 +9,6 @@ urlpatterns=[
     path('filter', views.filter_cat,name="filter"),
     path('ticker/<str:ticker>',views.ticker, name="ticker"),
     path('stock-data/', views.stock_data, name='stock-data'),
-    path('load', views.load, name="load")
+    path('load', views.load, name="load"),
+    path('analyze/<str:ticker>',views.analyze,name="analyze")
 ]

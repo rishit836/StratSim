@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from stocks.models import Portfolio,Strategy,holding
+from django.core.cache import cache
+
 from django.db.models import Q
 
 # Create your views here.
@@ -28,9 +30,12 @@ def home(request):
         current_return = portfolio.profit_loss_percent()
         invested_funds = 0
         holdings = holding.objects.filter(user=request.user)
-
-        for h in holdings:
-            invested_funds += h.quantity * h.current_price
+        if holdings.exists():
+            cache.set("chart_availablle", True,timeout=60*24*24)
+            for h in holdings:
+                invested_funds += h.quantity * h.current_price
+        else:
+            cache.set("chart_available",False,timeout=60*60*24)
     else:
         fund = 0
         portfolio = 0
@@ -49,7 +54,7 @@ def home(request):
         strat_change =  0
 
     
-    context = {'fund':"{:,}".format(fund), 'return':return_val, 'active_strats':active_strats, 'rv':PON(return_change), 'sv':PON(strat_change),'fv':PON(fund_change),"fc":fund_change,"return_change":return_change, "strat_change":strat_change,"invested_funds":invested_funds}
+    context = {'fund':"{:,}".format(fund), 'return':return_val, 'active_strats':active_strats, 'rv':PON(return_change), 'sv':PON(strat_change),'fv':PON(fund_change),"fc":fund_change,"return_change":return_change, "strat_change":strat_change,"invested_funds":invested_funds,"holdings_available":cache.get('chart_available')}
 
     return render(request,'index.html',context)
 

@@ -48,6 +48,8 @@ def execute_trade(request, user,ticker,action,quantity):
             stock.current_price = current_price
             # save the holding of the stock in the user holding
             stock.save()
+
+        portfolio.invested_amount += total_cost
     elif action.lower() == "sell":
         # check if the user owns a holding of the stock or not
         try:

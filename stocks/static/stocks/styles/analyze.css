@@ -1,0 +1,15 @@
+.page-container{
+    width: 1200px;
+    margin: auto;
+}
+.page-container .heading h3{
+    font-weight: 400;
+    margin-top: 10vh;
+    color: #f1fdef;
+
+}
+.heading-subtext{
+    font-size: .8rem;
+    font-weight: 400;
+    color: #889783;
+}

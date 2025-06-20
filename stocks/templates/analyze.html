@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block header  %}
+<link rel="stylesheet" href="{% static '/stocks/styles/analyze.css' %}">
+{% endblock header     %}
+{% block pagename %}Detailed Analysis{% endblock pagename %}
+
+{% block body %}
+
+
+<div class="page-container">
+    <div class="heading">
+        <h3>
+        welcome <span style="text-decoration:underline;">{{request.user.username|lower}}</span>,
+        </h3>
+        <div class="heading-subtext">
+            use the upto 95.8% accurate models and indicators to trade.
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
