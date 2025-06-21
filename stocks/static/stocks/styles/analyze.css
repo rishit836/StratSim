@@ -13,3 +13,16 @@
     font-weight: 400;
     color: #889783;
 }
+
+.chart{
+    max-width: 720px;
+    max-height: 400px;
+}
+
+
+@media (max-width: 1200px) {
+    .page-container{
+        width: 700px;
+        margin: auto;
+    }
+}

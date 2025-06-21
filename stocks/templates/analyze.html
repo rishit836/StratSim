@@ -2,6 +2,9 @@
 {% load static %}
 {% block header  %}
 <link rel="stylesheet" href="{% static '/stocks/styles/analyze.css' %}">
+
+<!-- chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock header     %}
 {% block pagename %}Detailed Analysis{% endblock pagename %}
 
@@ -9,6 +12,7 @@
 
 
 <div class="page-container">
+
     <div class="heading">
         <h3>
         welcome <span style="text-decoration:underline;">{{request.user.username|lower}}</span>,
@@ -17,6 +21,38 @@
             use the upto 95.8% accurate models and indicators to trade.
         </div>
     </div>
+
+    <div class="chart">
+<canvas id="data-chart" >
+</canvas>
+    </div>
+
+
 </div>
+
+<!-- chart logic -->
+
+<script>
+    const ctx = document.getElementById('data-chart')
+    new Chart(ctx,{
+        type: 'bar',
+        data:{
+            labels:['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets:[{
+                data: [12, 19, 3, 5, 2, 3],
+                borderWidth: 1,
+                borderColor: '#FF6384',
+                backgroundColor: '#FFB1C1',
+            }]   },
+            options:{
+                scales:{
+                    y:{
+                        beginAtZero:true
+                    }
+                }
+            }
+        });
+
+</script>
 
 {% endblock body %}
