@@ -228,11 +228,12 @@ def load(request):
     if not data_loaded:
         return render(request, 'loader.html')
     else:
-        return redirect(reverse('stocks:ticker', args=[cache.get("ticker")]))
+        return redirect(reverse('stocks:ticker', args=[cache.get("ticker")] ))
     
 
 
 def analyze(request,ticker):
     print("ticker analysis started for ticker:", ticker)
     c = {"ticker":ticker}
-    return render(request,"analyze.html",c)
+    # return render(request,"analyze.html",c)
+    return redirect(reverse("wallettree:predict",args=[ticker]))
