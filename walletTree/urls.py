@@ -5,5 +5,5 @@ app_name="wallettree"
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("/predict/<str:ticker>", views.predict, name="predict")
+    path("scrape/<str:ticker>", views.scrape, name="scrape")
 ]

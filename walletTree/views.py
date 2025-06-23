@@ -76,12 +76,12 @@ def get_data(data):
     now_time = datetime.now()
     time_limit = now_time + dt.timedelta(minutes=1)
     for date in data['date']:
-        if not os.path.exists("data/"+t+"_"+str(date)+".csv"):
+        if not os.path.exists('data/'+t+"/"+t+"_"+str(date)+".csv"):
             if request_num <5 and ((time_limit - datetime.now()).seconds > 0):
                 df,status = fetch_data(date,t,"5")
                 if status:
                     request_num+=1
-                    df.to_csv('data/'+t+"_"+str(date)+".csv",index=False)
+                    df.to_csv('data/'+t+"/"+t+"_"+str(date)+".csv",index=False)
                     print("data_saved")
                 else:
                     print("data was none")
@@ -90,10 +90,14 @@ def get_data(data):
                 now_time = datetime.now()
                 time_limit = now_time + dt.timedelta(minutes=1)
                 print("time limit reached or max request reached")
-                print("wait till", time_limit, "that is",str((time_limit - now_time)))
-                time.sleep( (time_limit - now_time).seconds + 1)
+                print("wait till", time_limit, "that is",str((time_limit - datetime.now())))
+                time.sleep( (time_limit - datetime.now()).seconds + 1)
+        else:
+            print(date, "exists")
 
-def predict(request,ticker):
+    print("Data Already exists or fetched.")
+
+def scrape(request,ticker):
     global t
     t = ticker.upper()
     ticker = yf.Ticker(t)
@@ -103,7 +107,7 @@ def predict(request,ticker):
     data['date'] = pd.to_datetime(data['date'])
     data['date'] = data['date'].dt.strftime('%Y-%m-%d')
     threading.Thread(target=get_data,args=[data]).start()
-    return HttpResponse("data proccessing started for ticker :" + str(ticker))
+    return HttpResponse("data proccessing started for ticker :" + str(t))
     
 
 

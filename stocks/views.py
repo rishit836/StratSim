@@ -236,4 +236,4 @@ def analyze(request,ticker):
     print("ticker analysis started for ticker:", ticker)
     c = {"ticker":ticker}
     # return render(request,"analyze.html",c)
-    return redirect(reverse("wallettree:predict",args=[ticker]))
+    return redirect(reverse("wallettree:scrape",args=[ticker]))
