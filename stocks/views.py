@@ -11,6 +11,7 @@ from django.urls import reverse
 from .operations import delete_if_outdated
 from .trade import execute_trade
 from .models import holding
+from walletTree import modelling
 
 import random
 

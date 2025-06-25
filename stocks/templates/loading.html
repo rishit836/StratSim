@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block pagename %}WalletTree{% endblock pagename %}
+{% block header %}
+<link rel="stylesheet" href="{% static 'stocks/styles/skelton_load.css' %}">
+{% endblock header %}
+
+
+{% block body %}
+<div class="page-container">
+
+
+    <div class="time-container">
+        <div class="time">
+            HH:MM:SS
+        </div>
+    </div>
+    <div class="skelton-container">
+        <div class="card-container">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+        </div>
+    </div>
+
+    
+
+</div>
+
+
+{% endblock body %}

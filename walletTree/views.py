@@ -9,6 +9,8 @@ import pandas as pd
 import yfinance as yf
 import threading
 
+global status
+
 def fetch_data(date, ticker, interval="1"):
     """
     Fetch intraday OHLCV data for a given stock on a specific date and interval.
@@ -98,16 +100,23 @@ def get_data(data):
     print("Data Already exists or fetched.")
 
 def scrape(request,ticker):
-    global t
-    t = ticker.upper()
-    ticker = yf.Ticker(t)
-    data = ticker.history(period="1y")
-    data['date'] = data.index
-    data.reset_index(inplace=True,drop=True)
-    data['date'] = pd.to_datetime(data['date'])
-    data['date'] = data['date'].dt.strftime('%Y-%m-%d')
-    threading.Thread(target=get_data,args=[data]).start()
-    return HttpResponse("data proccessing started for ticker :" + str(t))
+    global t,status
+
+    # if os.path.exists("models/"+ticker+"_model.pkl"):
+    #     status = True
+    # else:
+    #     status= False
+    status= False
+    if not status:
+        t = ticker.upper()
+        ticker = yf.Ticker(t)
+        # data = ticker.history(period="1y")
+        # data['date'] = data.index
+        # data.reset_index(inplace=True,drop=True)
+        # data['date'] = pd.to_datetime(data['date'])
+        # data['date'] = data['date'].dt.strftime('%Y-%m-%d')
+        # threading.Thread(target=get_data,args=[data]).start()
+    return render(request,"loading.html")
     
 
 
