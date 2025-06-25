@@ -11,8 +11,14 @@
 
 
     <div class="time-container">
+        <div class="heading">
+            please wait while data-scraping and model training takes place for {{ticker}} <br>
+        </div>
+        <div class="subheading">
+            (as free version of api request limit data retrieval per minute,this takes time thank you for your patience) 
+        </div>
         <div class="time">
-            HH:MM:SS
+            <span id="countdown">
         </div>
     </div>
     <div class="skelton-container">
@@ -30,6 +36,29 @@
     
 
 </div>
+<script>
+  // Get countdown time in seconds from Jinja
+  let totalSeconds = 150; // to replace
 
+  function formatTime(seconds) {
+    const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const s = String(seconds % 60).padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
+  const countdownEl = document.getElementById('countdown');
+  countdownEl.textContent = formatTime(totalSeconds);
+
+  const interval = setInterval(() => {
+    totalSeconds--;
+
+    if (totalSeconds <= 0) {
+      clearInterval(interval);
+      location.reload();  // 🔁 Reload page
+    } else {
+      countdownEl.textContent = formatTime(totalSeconds);
+    }
+  }, 1000);
+</script>
 
 {% endblock body %}

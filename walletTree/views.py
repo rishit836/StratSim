@@ -101,6 +101,7 @@ def get_data(data):
 
 def scrape(request,ticker):
     global t,status
+    c= {}
 
     # if os.path.exists("models/"+ticker+"_model.pkl"):
     #     status = True
@@ -116,7 +117,8 @@ def scrape(request,ticker):
         # data['date'] = pd.to_datetime(data['date'])
         # data['date'] = data['date'].dt.strftime('%Y-%m-%d')
         # threading.Thread(target=get_data,args=[data]).start()
-    return render(request,"loading.html")
+    c.update({"ticker":t.upper()})
+    return render(request,"loading.html",context=c)
     
 
 
