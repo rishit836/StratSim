@@ -111,7 +111,10 @@ def scrape(request,ticker):
     if not status:
         t = ticker.upper()
         ticker = yf.Ticker(t)
-        # data = ticker.history(period="1y")
+        data = ticker.history(period="1y")
+        expected_time = (len(data['Close'])/5)*60
+
+        c.update({"time":expected_time})
         # data['date'] = data.index
         # data.reset_index(inplace=True,drop=True)
         # data['date'] = pd.to_datetime(data['date'])

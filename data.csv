@@ -1,76 +1,76 @@
 symbol,name,current_price,price_change,percent_change,list_type
-NKTR,Nektar Therapeutics,24.45,14.91,156.289,TOP 100
-AMRN,Amarin Corporation plc,16.035,3.435,27.2619,TOP 100
-KEP,Korea Electric Power Corporation,12.61,2.23,21.4836,TOP 100
-AMBA,"Ambarella, Inc.",62.19,10.625,20.6051,TOP 100
-SMR,NuScale Power Corporation,43.24,6.74,18.4658,TOP 100
-CAR,"Avis Budget Group, Inc.",171.86,24.86,16.9116,TOP 100
-PONY,Pony AI Inc.,13.26,1.9,16.7254,TOP 100
-NEGG,"Newegg Commerce, Inc.",11.865,1.605,15.6433,TOP 100
-HTZ,"Hertz Global Holdings, Inc.",7.34,0.92,14.3302,TOP 100
-HSAI,Hesai Group,20.78,2.56,14.0505,TOP 100
-WGS,GeneDx Holdings Corp.,90.9,11.19,14.0384,TOP 100
-CLSK,"CleanSpark, Inc.",10.04,1.19,13.4463,TOP 100
-EDU,New Oriental Education & Technology Group Inc.,55.5,6.45,13.1498,TOP 100
-COIN,"Coinbase Global, Inc.",344.82,37.23,12.1038,TOP 100
-NEXT,NextDecade Corporation,9.2,0.97,11.7862,TOP 100
-ENPH,"Enphase Energy, Inc.",38.38,3.82,11.0532,TOP 100
-PAGS,PagSeguro Digital Ltd.,9.96,0.92,10.177,TOP 100
-OKLO,Oklo Inc.,60.71,5.6,10.1615,TOP 100
-HRI,Herc Holdings Inc.,128.63,11.54,9.85567,TOP 100
-UPST,"Upstart Holdings, Inc.",64.85,5.78,9.785,TOP 100
-DXCM,"DexCom, Inc.",87.57,7.73,9.68187,TOP 100
-MBLY,Mobileye Global Inc.,17.95,1.53,9.31791,TOP 100
-CAMT,Camtek Ltd.,81.55,6.7,8.95124,TOP 100
-NU,Nu Holdings Ltd.,13.43,1.09,8.83306,TOP 100
-TNXP,Tonix Pharmaceuticals Holding Corp.,35.67,2.88,8.78316,TOP 100
-NVDA,NVIDIA Corporation,147.9,3.73,2.58722,MOST ACTIVE
-NU,Nu Holdings Ltd.,13.43,1.09,8.83306,MOST ACTIVE
-TSLA,"Tesla, Inc.",340.47,-8.20999,-2.35459,MOST ACTIVE
-INTC,Intel Corporation,22.55,1.36,6.41812,MOST ACTIVE
-LCID,"Lucid Group, Inc.",2.17,0.00999999,0.462963,MOST ACTIVE
-AMD,"Advanced Micro Devices, Inc.",138.43,8.84999,6.82975,MOST ACTIVE
-F,Ford Motor Company,10.73,-0.0200005,-0.186051,MOST ACTIVE
-CCL,Carnival Corporation & plc,25.7,1.66,6.90516,MOST ACTIVE
-BTG,B2Gold Corp.,3.56,-0.11,-2.99728,MOST ACTIVE
-SOFI,"SoFi Technologies, Inc.",15.85,0.490001,3.19011,MOST ACTIVE
-WBD,"Warner Bros. Discovery, Inc.",10.9,0.219999,2.05992,MOST ACTIVE
-AAL,American Airlines Group Inc.,11.37,0.47,4.31193,MOST ACTIVE
-HIMS,"Hims & Hers Health, Inc.",42.95,0.970001,2.31063,MOST ACTIVE
-SMCI,"Super Micro Computer, Inc.",42.84,1.95,4.76889,MOST ACTIVE
-PLTR,Palantir Technologies Inc.,143.23,3.31,2.36564,MOST ACTIVE
-ABEV,Ambev S.A.,2.4,-0.02,-0.826446,MOST ACTIVE
-SOUN,"SoundHound AI, Inc.",9.82,0.33,3.47734,MOST ACTIVE
-AAPL,Apple Inc.,200.3,-1.2,-0.595532,MOST ACTIVE
-SNAP,Snap Inc.,8.32,0.41,5.18331,MOST ACTIVE
-RIOT,"Riot Platforms, Inc.",10.02,0.75,8.09061,MOST ACTIVE
-BBD,Banco Bradesco S.A.,3.03,0.00999999,0.331126,MOST ACTIVE
-MARA,"MARA Holdings, Inc.",14.88,0.7,4.93653,MOST ACTIVE
-ACHR,Archer Aviation Inc.,10.73,0.73,7.3,MOST ACTIVE
-BAC,Bank of America Corporation,46.66,0.360001,0.777539,MOST ACTIVE
-HOOD,"Robinhood Markets, Inc.",82.01,5.66,7.41323,MOST ACTIVE
-ATUS,"Altice USA, Inc.",2.16,0.12,5.88236,TRENDING
-JBLU,JetBlue Airways Corporation,4.27,0.17,4.14634,TRENDING
-SID,Companhia Siderúrgica Nacional,1.41,-0.0300001,-2.08334,TRENDING
-KOS,Kosmos Energy Ltd.,1.94,-0.0599999,-3.0,TRENDING
-DOLE,Dole plc,14.02,-0.12,-0.848656,TRENDING
-AVIR,"Atea Pharmaceuticals, Inc.",3.38,0.0600002,1.80723,TRENDING
-LAC,Lithium Americas Corp.,2.59,0.03,1.17187,TRENDING
-SONO,"Sonos, Inc.",10.34,0.28,2.7833,TRENDING
-VMEO,"Vimeo, Inc.",3.98,0.0899999,2.31362,TRENDING
-GPRO,"GoPro, Inc.",0.8527,-0.0068,-0.791157,TRENDING
-PBI,Pitney Bowes Inc.,10.49,0.179999,1.74587,TRENDING
-BFLY,"Butterfly Network, Inc.",2.01,-0.04,-1.95122,TRENDING
-USA,Liberty All-Star Equity Fund,6.68,0.0899997,1.3657,TRENDING
-ABCL,AbCellera Biologics Inc.,3.68,0.35,10.5105,TRENDING
-CHGG,"Chegg, Inc.",1.35,-0.05,-3.57143,TRENDING
-PGRE,"Paramount Group, Inc.",6.25,-0.18,-2.79938,TRENDING
-BMBL,Bumble Inc.,5.21,0.11,2.15687,TRENDING
-BDN,Brandywine Realty Trust,4.3,-0.02,-0.462963,TRENDING
-DBRG,"DigitalBridge Group, Inc.",10.34,0.14,1.37255,TRENDING
-SHO,"Sunstone Hotel Investors, Inc.",8.73,0.00999928,0.114671,TRENDING
-YQ,17 Education & Technology Group Inc.,2.16,0.08000016,3.8461618,TRENDING
-STEM,"Stem, Inc.",7.07,-0.37,-4.97312,TRENDING
-BKD,Brookdale Senior Living Inc.,6.83,-0.0799999,-1.15774,TRENDING
-CIM,Chimera Investment Corporation,13.91,0.139999,1.0167,TRENDING
-SCS,Steelcase Inc.,10.83,0.309999,2.94676,TRENDING
+QS,QuantumScape Corporation,5.67,1.34,30.9469,TOP 100
+AVAV,"AeroVironment, Inc.",234.94,41.66,21.5542,TOP 100
+NKTR,Nektar Therapeutics,29.12,4.67,19.1002,TOP 100
+TMC,TMC the metals company Inc.,7.49,0.88,13.3132,TOP 100
+LNW,"Light & Wonder, Inc.",94.48,8.66,10.0909,TOP 100
+SMCI,"Super Micro Computer, Inc.",46.61,3.77,8.80019,TOP 100
+KEP,Korea Electric Power Corporation,13.7,1.09,8.64394,TOP 100
+SYM,Symbotic Inc.,34.91,2.71,8.41615,TOP 100
+SRRK,Scholar Rock Holding Corporation,35.81,2.4,7.18348,TOP 100
+MIR,"Mirion Technologies, Inc.",21.5,1.24,6.12043,TOP 100
+FUTU,Futu Holdings Limited,124.33,7.03,5.99318,TOP 100
+COHR,Coherent Corp.,85.63,4.67,5.76828,TOP 100
+CLSK,"CleanSpark, Inc.",10.6,0.56,5.57769,TOP 100
+NTRS,Northern Trust Corporation,123.8,5.62,4.75546,TOP 100
+AMBA,"Ambarella, Inc.",64.89,2.7,4.34154,TOP 100
+NVDA,NVIDIA Corporation,154.31,6.41,4.33401,TOP 100
+DKS,"DICK'S Sporting Goods, Inc.",185.66,7.39,4.1454,TOP 100
+JHX,James Hardie Industries plc,25.6,0.970001,3.93829,TOP 100
+AMTM,"Amentum Holdings, Inc.",23.16,0.869999,3.90309,TOP 100
+KTOS,"Kratos Defense & Security Solutions, Inc.",42.33,1.56,3.82635,TOP 100
+TECH,Bio-Techne Corporation,51.89,1.89,3.78,TOP 100
+CLS,Celestica Inc.,149.04,5.2,3.61513,TOP 100
+AMD,"Advanced Micro Devices, Inc.",143.4,4.97,3.59026,TOP 100
+MLTX,MoonLake Immunotherapeutics,47.37,1.61,3.51836,TOP 100
+TTMI,"TTM Technologies, Inc.",39.2,1.33,3.51202,TOP 100
+NVDA,NVIDIA Corporation,154.31,6.41,4.33401,MOST ACTIVE
+QS,QuantumScape Corporation,5.67,1.34,30.9469,MOST ACTIVE
+LCID,"Lucid Group, Inc.",2.14,-0.03,-1.38249,MOST ACTIVE
+TSLA,"Tesla, Inc.",327.55,-12.92,-3.79476,MOST ACTIVE
+NU,Nu Holdings Ltd.,13.23,-0.200001,-1.48921,MOST ACTIVE
+F,Ford Motor Company,10.48,-0.25,-2.32992,MOST ACTIVE
+SMCI,"Super Micro Computer, Inc.",46.61,3.77,8.80019,MOST ACTIVE
+AMD,"Advanced Micro Devices, Inc.",143.4,4.97,3.59026,MOST ACTIVE
+BP,BP p.l.c.,30.32,0.49,1.64264,MOST ACTIVE
+SOFI,"SoFi Technologies, Inc.",16.08,0.23,1.4511,MOST ACTIVE
+ABEV,Ambev S.A.,2.32,-0.0800002,-3.33334,MOST ACTIVE
+BB,BlackBerry Limited,4.87,0.54,12.4711,MOST ACTIVE
+HIMS,"Hims & Hers Health, Inc.",41.41,-1.54,-3.58557,MOST ACTIVE
+INTC,Intel Corporation,22.2,-0.349998,-1.5521,MOST ACTIVE
+PLTR,Palantir Technologies Inc.,142.9,-0.330002,-0.2304,MOST ACTIVE
+WBD,"Warner Bros. Discovery, Inc.",10.87,-0.0299997,-0.275227,MOST ACTIVE
+AAL,American Airlines Group Inc.,11.06,-0.309999,-2.72647,MOST ACTIVE
+RIG,Transocean Ltd.,2.64,-0.0599999,-2.22222,MOST ACTIVE
+VALE,Vale S.A.,9.06,-0.15,-1.62866,MOST ACTIVE
+QXO,"QXO, Inc.",21.81,-1.7,-7.23097,MOST ACTIVE
+HOOD,"Robinhood Markets, Inc.",82.75,0.739998,0.902326,MOST ACTIVE
+MARA,"MARA Holdings, Inc.",14.98,0.0999994,0.672039,MOST ACTIVE
+BTG,B2Gold Corp.,3.59,0.03,0.842696,MOST ACTIVE
+ACHR,Archer Aviation Inc.,9.93,-0.799999,-7.45572,MOST ACTIVE
+ITUB,Itaú Unibanco Holding S.A.,6.59,-0.2,-2.94551,MOST ACTIVE
+ATUS,"Altice USA, Inc.",2.09,-0.0700002,-3.24075,TRENDING
+JBLU,JetBlue Airways Corporation,4.21,-0.0599999,-1.40515,TRENDING
+SID,Companhia Siderúrgica Nacional,1.32,-0.0899999,-6.38297,TRENDING
+KOS,Kosmos Energy Ltd.,1.86,-0.08,-4.12371,TRENDING
+DOLE,Dole plc,13.67,-0.35,-2.49644,TRENDING
+AVIR,"Atea Pharmaceuticals, Inc.",3.47,0.0899999,2.66272,TRENDING
+LAC,Lithium Americas Corp.,2.6,0.00999999,0.3861,TRENDING
+SONO,"Sonos, Inc.",10.75,0.41,3.96518,TRENDING
+VMEO,"Vimeo, Inc.",4.025,0.0450001,1.13066,TRENDING
+GPRO,"GoPro, Inc.",0.839,-0.0137,-1.60666,TRENDING
+PBI,Pitney Bowes Inc.,10.58,0.0900002,0.857961,TRENDING
+BFLY,"Butterfly Network, Inc.",1.97,-0.04,-1.99005,TRENDING
+USA,Liberty All-Star Equity Fund,6.7,0.02,0.299401,TRENDING
+ABCL,AbCellera Biologics Inc.,3.8,0.12,3.26087,TRENDING
+CHGG,"Chegg, Inc.",1.28,-0.0700001,-5.18519,TRENDING
+PGRE,"Paramount Group, Inc.",6.06,-0.19,-3.04,TRENDING
+BMBL,Bumble Inc.,6.52,1.31,25.144,TRENDING
+BDN,Brandywine Realty Trust,4.15,-0.15,-3.48837,TRENDING
+DBRG,"DigitalBridge Group, Inc.",10.3,-0.04,-0.386847,TRENDING
+SHO,"Sunstone Hotel Investors, Inc.",8.63,-0.0999994,-1.14547,TRENDING
+YQ,17 Education & Technology Group Inc.,2.09,-0.00999999,-0.47619003,TRENDING
+STEM,"Stem, Inc.",6.17,-0.9,-12.7298,TRENDING
+BKD,Brookdale Senior Living Inc.,6.91,0.0799999,1.1713,TRENDING
+CIM,Chimera Investment Corporation,13.91,0.0,0.0,TRENDING
+SCS,Steelcase Inc.,10.62,-0.21,-1.93906,TRENDING

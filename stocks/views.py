@@ -187,7 +187,10 @@ def ticker(request,ticker):
 
 def background_loader():
     global data_loaded,loading_data
+
     t = cache.get("ticker")
+    print("loading data for",t)
+
     cache.set("previous_ticker",t,timeout=60*60*24)
     ticker = yf.Ticker(t)
     d = ticker.history(period='1mo')

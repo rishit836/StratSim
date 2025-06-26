@@ -38,7 +38,7 @@
 </div>
 <script>
   // Get countdown time in seconds from Jinja
-  let totalSeconds = 150; // to replace
+  let totalSeconds = {{time}} ; // to replace
 
   function formatTime(seconds) {
     const m = String(Math.floor(seconds / 60)).padStart(2, '0');
