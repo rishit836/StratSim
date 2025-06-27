@@ -8,6 +8,7 @@ import requests
 import pandas as pd
 import yfinance as yf
 import threading
+from .bg_operations import bg_handler
 
 global status
 
@@ -71,12 +72,19 @@ def fetch_data(date, ticker, interval="1"):
 import time
 from datetime import datetime
 import datetime as dt
+
+
+
 def get_data(data):
     global t
     request_num = 0
     # polygon api limits 5apicall/minute
     now_time = datetime.now()
     time_limit = now_time + dt.timedelta(minutes=1)
+
+
+    # for now
+    '''
     for date in data['date']:
         if not os.path.exists('data/'+t+"/"+t+"_"+str(date)+".csv"):
             if request_num <5 and ((time_limit - datetime.now()).seconds > 0):
@@ -96,7 +104,7 @@ def get_data(data):
                 time.sleep( (time_limit - datetime.now()).seconds + 1)
         else:
             print(date, "exists")
-
+    '''
     print("Data Already exists or fetched.")
 
 def scrape(request,ticker):
@@ -112,8 +120,10 @@ def scrape(request,ticker):
         t = ticker.upper()
         ticker = yf.Ticker(t)
         data = ticker.history(period="1y")
-        expected_time = (len(data['Close'])/5)*60
-
+        # expected_time = (len(data['Close'])/5)*60
+        expected_time = 3000
+        bg_op_thread = threading.Thread(target=bg_handler,args=(t,))
+        bg_op_thread.start()
         c.update({"time":expected_time})
         # data['date'] = data.index
         # data.reset_index(inplace=True,drop=True)
