@@ -206,6 +206,7 @@ fetch("{% url 'stocks:stock-data' %}")
 
  {% if data_available %}
           <div class="table-scroll-wrapper">
+            {{data_available}}
       <table class="order-book">
         <thead>
           <tr>

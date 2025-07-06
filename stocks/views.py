@@ -141,8 +141,30 @@ def filter_cat(request):
 def stock_data(request):
     return JsonResponse(cache.get("chart-data"))
 
+
+def update_holdings(request):
+    print("checking")
+    holdings = holding.objects.filter(user = request.user)
+    if holdings.exists():
+        for h in holdings:
+            if h.ticker.lower() == cache.get("ticker").lower():
+                print("owned")
+                cache.set("data_available",True)
+                cache.set("share_quantity", h.quantity)
+                cache.set("ticker", h.ticker)
+                cache.set("price", h.current_price)
+    else:
+        print("not owned")
+        cache.set("data_available",False)
+        
+        
+        
+        
+
+
 def ticker(request,ticker):
     global data_loaded
+    update_holdings(request)
 
     if cache.get("previous_ticker") != ticker:
         data_loaded = False
@@ -152,11 +174,10 @@ def ticker(request,ticker):
     else:
         try: 
             if request.session["buy-mode"]:
-                print("exists")
+                pass
         except:
             request.session["buy-mode"]="buy"
         if request.method == "GET":
-            
             if request.GET.get("modebutton") is not None:
                 request.session['buy-mode'] = request.GET.get("modebutton")
             if request.GET.get("quantity") is not None:
@@ -166,9 +187,12 @@ def ticker(request,ticker):
                 quantity = request.session['quantity']
                 action = request.session['buy-mode']
                 state,message = execute_trade(request, request.user, ticker_symbol, action, quantity)
+                update_holdings(request)
                 context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":request.session['buy-mode'],"message":message,"state":state,"data_available":cache.get('data_available'),"share_quantity":cache.get("share_quantity"),
             "ticker":cache.get("ticker"),
             "price":cache.get("price")}
+                
+
                 return render(request,'ticker.html',context=context)
                 
 
@@ -239,5 +263,5 @@ def load(request):
 def analyze(request,ticker):
     print("ticker analysis started for ticker:", ticker)
     c = {"ticker":ticker}
-    # return render(request,"analyze.html",c)
-    return redirect(reverse("wallettree:scrape",args=[ticker]))
+    return render(request,"analyze.html",c)
+    # return redirect(reverse("wallettree:scrape",args=[ticker]))
