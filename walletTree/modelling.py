@@ -113,5 +113,14 @@ def main(ticker,data):
     pickle.dump(model_xg, open("models/"+t+"_model.pkl","rb"))
 
 
+def train(file_counter,file_name):
+    if file_name == None:
+        print("file not passed yet")
+        return True
+    else:
+        print("training model")
+        return True
+
+
 
 

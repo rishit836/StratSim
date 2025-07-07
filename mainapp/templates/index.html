@@ -56,6 +56,70 @@
 
             </div>
           {% endif %}
+{% if history_available %}
+<div class="fund-chart">
+  <canvas id="fundChart" ></canvas>
+</div>
+  <!-- JSON-encoded fund_data -->
+  {{ fund_data|json_script:"fundData" }}
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- ✅ Canvas -->
+
+
+<!-- ✅ fund_data JSON safely rendered -->
+{{ fund_data|json_script:"fundData" }}
+
+<!-- ✅ JavaScript block -->
+<script>
+  const ctx = document.getElementById('fundChart').getContext('2d');
+  const data = JSON.parse(document.getElementById('fundData').textContent);
+
+  console.log("Loaded fund data:", data);  // ✅ Should log object with labels & values
+
+  const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+  gradient.addColorStop(0, 'rgba(144, 238, 144, 0.5)');
+  gradient.addColorStop(1, 'rgba(144, 238, 144, 0.05)');
+
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: data.labels,
+      datasets: [{
+        label: 'Fund History',
+        data: data.values,
+        borderColor: 'lightgreen',
+        backgroundColor: gradient,
+        fill: true,
+        tension: .5,
+        pointRadius: 0,
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: '#a0a0a0',
+            font: { size: 10 },
+            maxRotation: 0,
+            autoSkip: true,
+            maxTicksLimit: 7,
+          },
+          grid: { display: false }
+        },
+       
+      }
+    }
+  });
+</script>
+  {% endif %}
+  
+
+          
 
 
         </div>

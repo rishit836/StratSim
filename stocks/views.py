@@ -223,8 +223,8 @@ def background_loader():
     d.reset_index(drop=True,inplace=True)
     cache.set('data_dict',d,timeout=60*60*24)
     data = {
-            # "price": 150.25,
-            # "change_percent": 2.5,
+            
+            
             "labels": d['Date'].to_list(),
             "values": d['Close'].to_list()
         }
@@ -263,5 +263,5 @@ def load(request):
 def analyze(request,ticker):
     print("ticker analysis started for ticker:", ticker)
     c = {"ticker":ticker}
-    return render(request,"analyze.html",c)
-    # return redirect(reverse("wallettree:scrape",args=[ticker]))
+    # return render(request,"analyze.html",c)
+    return redirect(reverse("wallettree:scrape",args=[ticker]))

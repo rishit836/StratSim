@@ -120,9 +120,9 @@ def scrape(request,ticker):
         t = ticker.upper()
         ticker = yf.Ticker(t)
         data = ticker.history(period="1y")
-        # expected_time = (len(data['Close'])/5)*60
-        expected_time = 3000
-        bg_op_thread = threading.Thread(target=bg_handler,args=(t,))
+        expected_time = (len(data['Close'])/5)*60
+        # expected_time = 3000
+        bg_op_thread = threading.Thread(target=bg_handler,args=(t,len(data['Close']),))
         bg_op_thread.start()
         c.update({"time":expected_time})
         # data['date'] = data.index

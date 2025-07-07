@@ -143,3 +143,16 @@
     text-decoration: none;
     color: rgb(196, 221, 238);
 }
+
+.fund-chart{
+    display:flex;
+    min-width: 65vw;
+    max-height: 500px;
+    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+    
+}
+.fund-chart #fundChart{
+    width: 50%;
+}

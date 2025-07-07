@@ -6,6 +6,7 @@ from stocks.models import Portfolio,Strategy,holding
 from django.core.cache import cache
 
 from django.db.models import Q
+from .models import growth
 
 # Create your views here.
 
@@ -36,6 +37,21 @@ def home(request):
                 invested_funds += h.quantity * h.current_price
         else:
             cache.set("chart_available",False,timeout=60*60*24)
+        growth_history = growth.objects.filter(user=request.user)
+        
+        if growth_history.exists():
+            growth_history = growth_history[0]
+
+            history_available = True
+            print(growth_history.fund_history)
+            fund_data = {"values":growth_history.fund_history,
+                         "labels":[i for i in range(len(growth_history.fund_history))]
+            }
+        else:
+            history_available = False
+            
+        
+
     else:
         fund = 0
         portfolio = 0
@@ -45,6 +61,7 @@ def home(request):
         strategies = 0
         current_return = 0
         invested_funds = 0
+        history_available = False
 
     return_val = current_return
     if strategies:
@@ -53,8 +70,8 @@ def home(request):
         active_strats = 0
         strat_change =  0
 
-    
-    context = {'fund':"{:,}".format(fund), 'return':return_val, 'active_strats':active_strats, 'rv':PON(return_change), 'sv':PON(strat_change),'fv':PON(fund_change),"fc":fund_change,"return_change":return_change, "strat_change":strat_change,"invested_funds":invested_funds,"holdings_available":cache.get('chart_available')}
+    print(history_available)
+    context = {'fund':"{:,}".format(fund), "fund_data":fund_data,'return':return_val, 'active_strats':active_strats, 'rv':PON(return_change), 'sv':PON(strat_change),'fv':PON(fund_change),"fc":fund_change,"return_change":return_change, "strat_change":strat_change,"invested_funds":invested_funds,"holdings_available":cache.get('chart_available'),"history_available":history_available}
 
     return render(request,'index.html',context)
 
