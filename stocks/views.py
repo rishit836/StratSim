@@ -8,10 +8,11 @@ import threading
 from django.core.cache import cache
 from django.http import JsonResponse
 from django.urls import reverse
-from .operations import delete_if_outdated
+from .operations import delete_if_outdated,create_sector
 from .trade import execute_trade
 from .models import holding
 from walletTree import modelling
+
 
 import random
 
@@ -79,8 +80,20 @@ def create_data():
     full_df_lst = [top_100,most_active,trend]
     full_df = pd.concat(full_df_lst)
     full_df.to_csv("data.csv",index=False)
+    
+    print("Data Generated and Saved.Now Creating Sectors...")
+    sectors = create_sector()
+    print(sectors)
+    sec_column = []
+    for num,row in full_df.iterrows():
+        if row['symbol'] in sectors.keys():
+            sec_column.append(sectors[row['symbol']])
+        else:
+            sec_column.append("None")
+    full_df['sectors'] = sec_column
+    full_df.to_csv("data.csv",index=False)
     data_generated = True
-    print("Data Generated and Saved.")
+
 
 
 

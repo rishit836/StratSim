@@ -1,6 +1,7 @@
 from decimal import Decimal
 from .models import Portfolio, holding, Transaction
 import yfinance as yf
+from mainapp.models import growth
 
 
 def execute_trade(request, user,ticker,action,quantity):

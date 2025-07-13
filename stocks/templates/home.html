@@ -87,10 +87,10 @@
 
             {% if filter_applied %}
 
-            {% if filter == "tech" %}
-            <button type="submit" name="sector" value="tech" class="active">Tech</button>
+            {% if filter == "technology" %}
+            <button type="submit" name="sector" value="technology" class="active">Tech</button>
             {% else %}
-            <button type="submit" name="sector" value="tech">Tech</button>
+            <button type="submit" name="sector" value="technology">Tech</button>
             {% endif %}
             {% if filter == "energy" %}
             <button type="submit" name="sector" value="energy" class="active">Energy</button>
@@ -118,7 +118,7 @@
 
 
             {% else %}
-            <button type="submit" name="sector" value="tech">Tech</button>
+            <button type="submit" name="sector" value="technology">Tech</button>
             <button type="submit" name="sector" value="energy">Energy</button>
 
             <button type="submit" name="sector" value="healthcare">Healthcare</button>
@@ -140,12 +140,15 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Change</th>
+                <th>Sector</th>
                 {% comment %} <th>Category</th> {% endcomment %}
             </tr>
         </thead>
         <tbody>
             {% for stock in stocks %}
-            <tr>
+            {% if filter_applied %}
+            {% if stock.sectors|lower == filter|lower %}
+                                    <tr>
                 <td>
                     <a href="{% url 'stocks:ticker' stock.symbol %}"><span></span>{{stock.symbol}}</span></a>
                     </td>
@@ -157,9 +160,31 @@
                 {% else %}
                 <td><span class="details positive">{{stock.percent_change|round_:1}} %</span></td>
                 {% endif %}
+                <td><span class="details">{{stock.sectors}}</span></td>
                 
                 {% comment %} <td><span class="details">{{stock.list_type}}</span></td> {% endcomment %}
             </tr>
+            {% endif %}
+
+            {% else %}
+                        <tr>
+                <td>
+                    <a href="{% url 'stocks:ticker' stock.symbol %}"><span></span>{{stock.symbol}}</span></a>
+                    </td>
+                <td><span class="details">{{stock.name}}</span></td>
+                
+                <td><span class="details">$ {{stock.current_price|round_:2}}</span></td>
+                {% if stock.percent_change|round_:1 < 0 %}
+                <td><span class="details negative">{{stock.percent_change|round_:1}} %</span></td>
+                {% else %}
+                <td><span class="details positive">{{stock.percent_change|round_:1}} %</span></td>
+                {% endif %}
+                <td><span class="details">{{stock.sectors}}</span></td>
+                
+                {% comment %} <td><span class="details">{{stock.list_type}}</span></td> {% endcomment %}
+            </tr>
+            {% endif %}
+
             {% endfor %}
         </tbody>
     </table>

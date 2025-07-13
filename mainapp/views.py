@@ -62,6 +62,7 @@ def home(request):
         current_return = 0
         invested_funds = 0
         history_available = False
+        fund_data = None
 
     return_val = current_return
     if strategies:
