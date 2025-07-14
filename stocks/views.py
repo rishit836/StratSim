@@ -98,7 +98,6 @@ def create_data():
 
 
 def home(request):
-    
     global filter_applied, filter_cat, list_cat,data_generated,cat_map
     delete_if_outdated('data.csv')
     if not os.path.exists('data.csv'):
@@ -231,16 +230,16 @@ def background_loader():
     cache.set("previous_ticker",t,timeout=60*60*24)
     ticker = yf.Ticker(t)
     d = ticker.history(period='1mo')
+    print(d)
     d['Date'] = d.index
     d['Date'] = d['Date'].dt.tz_convert('Asia/Kolkata').dt.strftime('%d/%m/%Y')
     d.reset_index(drop=True,inplace=True)
     cache.set('data_dict',d,timeout=60*60*24)
     data = {
-            
-            
             "labels": d['Date'].to_list(),
             "values": d['Close'].to_list()
         }
+    print(data)
     cache.set("chart-data",data,timeout=60*60*24)
     cache.set("data_available", False)
     holdings = holding.objects.filter(user = r_l.user)
@@ -253,6 +252,7 @@ def background_loader():
             cache.set("price", h.current_price)
     data_loaded = True
     loading_data=False
+    print("chart should be visible")
 
 
 
