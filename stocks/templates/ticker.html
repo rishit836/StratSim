@@ -4,6 +4,12 @@
 {% block pagename %}{{ticker}}{%endblock pagename %} 
 {% block header %}
 
+
+
+
+
+
+
 <link rel="stylesheet" href="{% static 'stocks/styles/ticker.css' %}" />
 {% endblock header %} 
 {% block body %}
@@ -31,68 +37,6 @@
           
         {% endfor %} -->
         <canvas id="stockChart" width="600" height="300"></canvas>
-
-<script>
-fetch("{% url 'stocks:stock-data' %}")
-  .then(response => response.json())
-  .then(data => {
-    const ctx = document.getElementById('stockChart').getContext('2d');
-
-    // Create gradient fill like second chart
-    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(144, 238, 144, 0.5)');  // Light green top
-    gradient.addColorStop(1, 'rgba(144, 238, 144, 0.05)'); // Transparent bottom
-
-    const chart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: data.labels,
-        datasets: [{
-          label: 'Stock Price',
-          data: data.values,
-          borderColor: 'lightgreen',
-          backgroundColor: gradient,
-          fill: true,         // 👈 enables area fill
-          tension:1,       // 👈 curve smoothing
-          pointRadius: 0,     // 👈 hide points for smooth look
-        }]
-      },
-      options: {
-        plugins: {
-          legend: { display: false },  // optional: hide legend for minimal look
-        },
-        animations: {
-          tension: {
-            duration: 2300,
-            easing: 'linear',
-            from: .7,
-            to: .3,
-            loop: true
-          }
-        },
-        scales: {
-          x: {
-            ticks: {
-              color: '#a0a0a0',
-              font: {
-                size: 10,
-              },
-              maxRotation: 0,
-              autoSkip: true,
-              maxTicksLimit: 7, // 👈 match "Day 1", "Day 5", etc.
-            },
-            grid: {
-              display: false
-            }
-          },
-          y: {
-            display: false
-          }
-        }
-      }
-    });
-  });
-</script>
     </div>
     <div class="stats">
       <div class="heading">
@@ -248,5 +192,67 @@ fetch("{% url 'stocks:stock-data' %}")
 
   </div>
 </div>
+<script>
+fetch("{% url 'stocks:stock-data' %}")
+  .then(response => response.json())
+  .then(data => {
+    const ctx = document.getElementById('stockChart').getContext('2d');
+
+    // Create gradient fill like second chart
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(144, 238, 144, 0.5)');  // Light green top
+    gradient.addColorStop(1, 'rgba(144, 238, 144, 0.05)'); // Transparent bottom
+
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: data.labels,
+        datasets: [{
+          label: 'Stock Price',
+          data: data.values,
+          borderColor: 'lightgreen',
+          backgroundColor: gradient,
+          fill: true,         // 👈 enables area fill
+          tension:1,       // 👈 curve smoothing
+          pointRadius: 0,     // 👈 hide points for smooth look
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { display: false },  // optional: hide legend for minimal look
+        },
+        animations: {
+          tension: {
+            duration: 2300,
+            easing: 'linear',
+            from: .7,
+            to: .3,
+            loop: true
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: '#a0a0a0',
+              font: {
+                size: 10,
+              },
+              maxRotation: 0,
+              autoSkip: true,
+              maxTicksLimit: 7, // 👈 match "Day 1", "Day 5", etc.
+            },
+            grid: {
+              display: false
+            }
+          },
+          y: {
+            display: false
+          }
+        }
+      }
+    });
+  });
+</script>
+
   {% endblock body %}
 

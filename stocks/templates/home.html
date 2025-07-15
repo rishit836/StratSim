@@ -126,29 +126,33 @@
             <button type="submit" name="sector" value="finance">Finance</button>
             {% endif %}
 
-
+            <button type="submit" name="sector" value="clear"> Clear </button>
         </form>
     </div>
 
     <div class="divider"></div>
      {% if data_availabe %}
 <div class="table-scroll-wrapper">
+            
+
     <table class="data-table">
+
         <thead>
             <tr>
                 <th>Symbol</th>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Change</th>
-                <th>Sector</th>
                 {% comment %} <th>Category</th> {% endcomment %}
             </tr>
         </thead>
         <tbody>
             {% for stock in stocks %}
+    
+            
             {% if filter_applied %}
-            {% if stock.sectors|lower == filter|lower %}
-                                    <tr>
+                {% if stock.sectors|lower == filter|lower %}
+            <tr>
                 <td>
                     <a href="{% url 'stocks:ticker' stock.symbol %}"><span></span>{{stock.symbol}}</span></a>
                     </td>
@@ -160,11 +164,10 @@
                 {% else %}
                 <td><span class="details positive">{{stock.percent_change|round_:1}} %</span></td>
                 {% endif %}
-                <td><span class="details">{{stock.sectors}}</span></td>
                 
                 {% comment %} <td><span class="details">{{stock.list_type}}</span></td> {% endcomment %}
             </tr>
-            {% endif %}
+                {% endif %}
 
             {% else %}
                         <tr>
@@ -179,7 +182,6 @@
                 {% else %}
                 <td><span class="details positive">{{stock.percent_change|round_:1}} %</span></td>
                 {% endif %}
-                <td><span class="details">{{stock.sectors}}</span></td>
                 
                 {% comment %} <td><span class="details">{{stock.list_type}}</span></td> {% endcomment %}
             </tr>

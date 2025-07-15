@@ -26,6 +26,67 @@ cat_map = {
     "mostactive":"MOST ACTIVE",
     "trend":"TRENDING"
 }
+finnhub_to_button_category = {
+    # --- Technology ---
+    "Technology": "technology",
+    "Semiconductors": "technology",
+    "Software & Services": "technology",
+    "Technology Hardware & Equipment": "technology",
+    "IT Services": "technology",
+    "Internet Services & Infrastructure": "technology",
+    "Telecommunication": "technology",
+    "Media": "technology",  # Often digital media, fits better in tech for most firms
+    "Life Sciences Tools & Services": "technology",  # Often biotech-tech hybrid
+    "Professional Services": "technology",  # Assume tech consulting unless domain-specific
+    "Commercial Services & Supplies": "technology",  # Can include IT logistics
+    "Diversified Consumer Services": "technology",  # e.g. EdTech, SaaS platforms
+
+    # --- Energy ---
+    "Energy": "energy",
+    "Oil, Gas & Consumable Fuels": "energy",
+    "Oil & Gas Equipment & Services": "energy",
+    "Renewable Electricity": "energy",
+    "Independent Power Producers & Energy Traders": "energy",
+    "Utilities": "energy",
+
+    # --- Healthcare ---
+    "Health Care": "healthcare",
+    "Pharmaceuticals": "healthcare",
+    "Life Sciences Tools & Services": "healthcare",
+    "Health Care Providers & Services": "healthcare",
+    "Health Care Equipment & Services": "healthcare",
+
+    # --- Real Estate ---
+    "Real Estate": "estate",
+    "Equity Real Estate Investment Trusts (REITs)": "estate",
+    "Real Estate Management & Development": "estate",
+
+    # --- Finance ---
+    "Financials": "finance",
+    "Banking": "finance",
+    "Banks": "finance",
+    "Capital Markets": "finance",
+    "Insurance": "finance",
+    "Consumer Finance": "finance",
+    "Diversified Financials": "finance",
+    "Financial Services": "finance",
+
+    # ------- Other mappings (use best-fit strategy) -------
+    "Electrical Equipment": "technology",  # Often overlaps with electronics and power-tech
+    "Auto Components": "technology",  # Includes sensors, chips, automation
+    "Automobiles": "technology",  # EV and connected cars have tech base
+    "Aerospace & Defense": "technology",  # Usually includes avionics, defense tech
+    "Airlines": "technology",  # Often includes logistics/air-tech, can also be "other"
+    "Metals & Mining": "energy",  # Needed for batteries, oil, etc.
+    "Consumer products": "healthcare",  # Most often pharma, wellness, etc.
+    "Food Products": "healthcare",  # Food tech / nutrition focus
+
+    # N/A or unknown fallback
+    "N/A": "None"
+}
+
+
+
 
 
 
@@ -44,8 +105,9 @@ def generate_data(d):
     response = yf.screen(d)
     symbols,names,current_price,price_change,percent_change = [], [],[],[],[]
     for data in response['quotes']:
+        
         symbols.append(data['symbol'])
-        names.append(data['longName'])
+        names.append(data['shortName'])
         current_price.append(data['regularMarketPrice'])
         price_change.append(data['regularMarketChange'])
         percent_change.append(data['regularMarketChangePercent'])
@@ -57,7 +119,7 @@ def generate_data(d):
     return pd.DataFrame(data_dict)
 
 def create_data():
-    global data_generated
+    global data_generated,finnhub_to_button_category
     print("Fetching Data")
 
     top_100 = generate_data('day_gainers')
@@ -91,6 +153,19 @@ def create_data():
         else:
             sec_column.append("None")
     full_df['sectors'] = sec_column
+    secs = []
+    values_not_seg = []
+    for num,row in full_df.iterrows():
+        if row['sectors'] in finnhub_to_button_category.keys():
+            print("converting",num)
+            secs.append(finnhub_to_button_category[row['sectors']])
+            row['sectors'] = finnhub_to_button_category[row['sectors']]
+        else:
+            values_not_seg.append(row['sectors'])
+            secs.append(row['sectors'])
+    full_df['sectors'] = secs
+    print('/n'*5)
+    print(values_not_seg)
     full_df.to_csv("data.csv",index=False)
     data_generated = True
 
@@ -117,7 +192,9 @@ def home(request):
             }
         else:
             df = pd.read_csv("data.csv")
+            print(df['list_type'])
             df = df.loc[df['list_type'] == cat_map[list_cat]]
+            print(df)
             table_data = df.to_dict(orient='records')
             context = {
                 "filter_applied": filter_applied,
@@ -140,9 +217,15 @@ def filter_cat(request):
     if request.method == "GET":
         if request.GET.get("sector") is not None:
             filter_cat = request.GET.get("sector")
+            if filter_cat != "clear":
+
+                filter_applied = True
+            else:
+                # remove the filter
+                filter_applied = False
         if request.GET.get("list") is not None:
             list_cat = request.GET.get("list")
-        filter_applied = True
+        
         print("filter applied:", filter_cat)
         print("list selected:", list_cat)
 

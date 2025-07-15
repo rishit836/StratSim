@@ -41,7 +41,7 @@
 .page-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -375,9 +375,11 @@
 
 .right-menu{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 50px;
     justify-content: center;
     align-items: center;
-    margin-right: 5vw;
+    /* margin-right: 5vw; */
+    width: 100%;
+    margin-top: 30px;;
 }
