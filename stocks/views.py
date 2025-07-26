@@ -145,7 +145,6 @@ def create_data():
     
     print("Data Generated and Saved.Now Creating Sectors...")
     sectors = create_sector()
-    print(sectors)
     sec_column = []
     for num,row in full_df.iterrows():
         if row['symbol'] in sectors.keys():
@@ -157,7 +156,6 @@ def create_data():
     values_not_seg = []
     for num,row in full_df.iterrows():
         if row['sectors'] in finnhub_to_button_category.keys():
-            print("converting",num)
             secs.append(finnhub_to_button_category[row['sectors']])
             row['sectors'] = finnhub_to_button_category[row['sectors']]
         else:
@@ -192,9 +190,7 @@ def home(request):
             }
         else:
             df = pd.read_csv("data.csv")
-            print(df['list_type'])
             df = df.loc[df['list_type'] == cat_map[list_cat]]
-            print(df)
             table_data = df.to_dict(orient='records')
             context = {
                 "filter_applied": filter_applied,
@@ -306,37 +302,43 @@ def ticker(request,ticker):
 
 
 def background_loader():
-    global data_loaded,loading_data
+    try:
+        global data_loaded,loading_data,error_occured
 
-    t = cache.get("ticker")
-    print("loading data for",t)
+        t = cache.get("ticker")
+        print("loading data for",t)
 
-    cache.set("previous_ticker",t,timeout=60*60*24)
-    ticker = yf.Ticker(t)
-    d = ticker.history(period='1mo')
-    print(d)
-    d['Date'] = d.index
-    d['Date'] = d['Date'].dt.tz_convert('Asia/Kolkata').dt.strftime('%d/%m/%Y')
-    d.reset_index(drop=True,inplace=True)
-    cache.set('data_dict',d,timeout=60*60*24)
-    data = {
-            "labels": d['Date'].to_list(),
-            "values": d['Close'].to_list()
-        }
-    print(data)
-    cache.set("chart-data",data,timeout=60*60*24)
-    cache.set("data_available", False)
-    holdings = holding.objects.filter(user = r_l.user)
-    for h in holdings:
-        if h.ticker.lower() == cache.get("ticker").lower():
-            print("user owns", cache.get("ticker"))
-            cache.set("data_available",True)
-            cache.set("share_quantity", h.quantity)
-            cache.set("ticker", h.ticker)
-            cache.set("price", h.current_price)
-    data_loaded = True
-    loading_data=False
-    print("chart should be visible")
+        cache.set("previous_ticker",t,timeout=60*60*24)
+        ticker = yf.Ticker(t)
+        d = ticker.history(period='1mo')
+        d['Date'] = d.index
+        d['Date'] = d['Date'].dt.tz_convert('Asia/Kolkata').dt.strftime('%d/%m/%Y')
+        d.reset_index(drop=True,inplace=True)
+        cache.set('data_dict',d,timeout=60*60*24)
+        data = {
+                "labels": d['Date'].to_list(),
+                "values": d['Close'].to_list()
+            }
+        cache.set("chart-data",data,timeout=60*60*24)
+        cache.set("data_available", False)
+        holdings = holding.objects.filter(user = r_l.user)
+        for h in holdings:
+            if h.ticker.lower() == cache.get("ticker").lower():
+                print("user owns", cache.get("ticker"))
+                cache.set("data_available",True)
+                cache.set("share_quantity", h.quantity)
+                cache.set("ticker", h.ticker)
+                cache.set("price", h.current_price)
+        data_loaded = True
+        loading_data=False
+        error_occured = False
+        print("chart should be visible")
+    except:
+        data_loaded = False
+        loading_data = False
+        error_occured = True
+        print("Some Unknown Error Occured.Error From Yfinance api.")
+
 
 
 
@@ -344,16 +346,16 @@ def background_loader():
 
 
 loading_data = False
+error_occured = False
 def load(request):
-    global loading_data,r_l
+    global loading_data,r_l,error_occured
     r_l = request
     if not loading_data:
-        try:
-            threading.Thread(target=background_loader).start()
-            loading_data = True
-        except:
-            loading_data= False
-            return redirect(reverse("main:home"))
+        error_occured = False
+        threading.Thread(target=background_loader).start()
+        loading_data = True
+    if error_occured:
+        return redirect(reverse("stocks:market"))
     if not data_loaded:
         return render(request, 'loader.html')
     else:
