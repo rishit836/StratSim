@@ -40,7 +40,9 @@ def execute_trade(request, user,ticker,action,quantity):
         # if user already owns the stock and it wasnt created
         if not created:
             # new quantity of stocks owned
+            print("before",stock.quantity)
             total_quantity = stock.quantity + quantity
+
             # update the avg buy price for the user (incase user buys at a higher price/ or lower price)
             stock.avg_buy_price = ( (stock.avg_buy_price * stock.quantity + current_price * quantity) / total_quantity)
             # update the quantity
@@ -73,7 +75,7 @@ def execute_trade(request, user,ticker,action,quantity):
 
         # update the portfolio for the user to show the loss/profit made
         portfolio.initial_funds = portfolio.current_funds
-        portfolio.current_funds += proceeds
+        portfolio.current_funds += realized_pnl
         portfolio.invested_amount -= cost_basis
 
         # update the quantity of the share in case user is only selling few shares and keeping the rest
@@ -84,6 +86,7 @@ def execute_trade(request, user,ticker,action,quantity):
         if stock.quantity == 0:
             stock.delete()
         else:
+            print(stock)
             stock.save()
     else:
         print("INVALID ACTION")
@@ -101,6 +104,9 @@ def execute_trade(request, user,ticker,action,quantity):
     # Save updated portfolio
     portfolio.update_return_history()
     portfolio.save()
+
+    user_growth, _ = growth.objects.get_or_create(user=user)
+    user_growth.push(float(portfolio.current_funds)) 
 
     return True,"your trade was succesfull check the dashboard for the changes!"
 

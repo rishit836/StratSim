@@ -11,9 +11,9 @@ class growth(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     fund_history = models.JSONField(default=list)
     
-    def push(self,fund,max_length:int=10):
-        if len(self.fund_history) > max_length:
-            self.fund_history.pop(0) # removing the oldest entry (FIFO:First in First Out)
+    def push(self, fund, max_length: int = 5):
+        if len(self.fund_history) >= max_length:
+            self.fund_history.pop(0)  # remove oldest
         self.fund_history.append(fund)
         self.save()
 

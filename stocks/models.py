@@ -14,7 +14,7 @@ class Portfolio(models.Model):
     previous_return_percent = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     
     def total_value(self):
-        return self.current_funds + self.invested_amount
+        return self.current_funds
 
     def profit_loss_percent(self):
         if self.initial_funds == 0:
@@ -51,7 +51,7 @@ class holding(models.Model):
         return (self.current_price - self.avg_buy_price) * self.quantity
 
     def __str__(self):
-        return f"{self.ticker} - {self.user.username}"
+        return f"{self.ticker} - {self.user.username} - {self.quantity}"
     
 
 class Transaction(models.Model):

@@ -237,12 +237,13 @@ def stock_data(request):
     return JsonResponse(cache.get("chart-data"))
 
 
-def update_holdings(request):
+def update_holdings(request,ticker):
     print("checking")
     holdings = holding.objects.filter(user = request.user)
     if holdings.exists():
         for h in holdings:
-            if h.ticker.lower() == cache.get("ticker").lower():
+            print(h.ticker)
+            if h.ticker.lower() == ticker.lower():
                 print("owned")
                 cache.set("data_available",True)
                 cache.set("share_quantity", h.quantity)
@@ -259,7 +260,7 @@ def update_holdings(request):
 
 def ticker(request,ticker):
     global data_loaded
-    update_holdings(request)
+    update_holdings(request,ticker)
 
     if cache.get("previous_ticker") != ticker:
         data_loaded = False
@@ -282,7 +283,7 @@ def ticker(request,ticker):
                 quantity = request.session['quantity']
                 action = request.session['buy-mode']
                 state,message = execute_trade(request, request.user, ticker_symbol, action, quantity)
-                update_holdings(request)
+                update_holdings(request,ticker)
                 context = {"ticker":ticker,"data":cache.get("data_dict").to_dict(orient="records"),"mode":request.session['buy-mode'],"message":message,"state":state,"data_available":cache.get('data_available'),"share_quantity":cache.get("share_quantity"),
             "ticker":cache.get("ticker"),
             "price":cache.get("price")}
@@ -347,8 +348,12 @@ def load(request):
     global loading_data,r_l
     r_l = request
     if not loading_data:
-        threading.Thread(target=background_loader).start()
-        loading_data = True
+        try:
+            threading.Thread(target=background_loader).start()
+            loading_data = True
+        except:
+            loading_data= False
+            return redirect(reverse("main:home"))
     if not data_loaded:
         return render(request, 'loader.html')
     else:
