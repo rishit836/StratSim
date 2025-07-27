@@ -364,12 +364,15 @@ def load(request):
         return redirect(reverse('stocks:ticker', args=[cache.get("ticker")] ))
     
 
-
+chart_view = "one-year"
 def analyze(request,ticker):
+    global chart_view
     print("ticker analysis started for ticker:", ticker)
     c = {"ticker":ticker}
     if request.method == "POST":
         chart_view = request.POST.get("chart-view")
         print(chart_view)
+    cache.set("chart_view",chart_view,timeout=60*24*60)
+    
     # return render(request,"analyze.html",c)
     return redirect(reverse("wallettree:scrape",args=[ticker]))

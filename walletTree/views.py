@@ -9,6 +9,8 @@ import pandas as pd
 import yfinance as yf
 import threading
 from .bg_operations import bg_handler
+from stocks.views import chart_view
+from django.core.cache import cache
 
 global status
 
@@ -109,13 +111,15 @@ def get_data(data):
 
 def scrape(request,ticker):
     global t,status
+    chart_view = cache.get("chart_view")
     c= {}
 
     # if os.path.exists("models/"+ticker+"_model.pkl"):
     #     status = True
     # else:
     #     status= False
-    status= False
+    status= True
+    t = ticker.upper()
     if not status:
         t = ticker.upper()
         ticker = yf.Ticker(t)
@@ -136,6 +140,7 @@ def scrape(request,ticker):
         # data['date'] = data['date'].dt.strftime('%Y-%m-%d')
         # threading.Thread(target=get_data,args=[data]).start()
     c.update({"ticker":t.upper()})
+    c.update({"active_view":chart_view})
     return render(request,"loading.html",context=c)
     
 

@@ -26,11 +26,11 @@
       <div class="button-holder">
         <form action="{% url 'stocks:analyze' ticker %}" method="POST">
           {% csrf_token %}
-        <button type="submit" value="one-day" name="chart-view">1D</button>
-        <button type="submit" value="one-week" name="chart-view">1W</button>
-        <button type="submit" value="one-month" name="chart-view">1M</button>
-        <button type="submit" value="one-year" name="chart-view">1Y</button>
-        <button type="submit" value="max" name="chart-view">MAX</button>
+        <button type="submit" value="one-day" name="chart-view" {% if active_view|lower == "one-day" %}class="active"{%else%}class=""{% endif %}>1D</button>
+        <button type="submit" value="one-week" name="chart-view"{% if active_view|lower == "one-week" %}class="active"{%else%}class=""{% endif %}>1W</button>
+        <button type="submit" value="one-month" name="chart-view"{% if active_view|lower == "one-month" %}class="active"{%else%}class=""{% endif %}>1M</button>
+        <button type="submit" value="one-year" name="chart-view" {% if active_view|lower == "one-year" %}class="active"{%else%}class=""{% endif %}>1Y</button>
+        <button type="submit" value="max" name="chart-view" {% if active_view|lower == "max" %}class="active"{%else%}class=""{% endif %}>MAX</button>
         </form>
       </div>
     </div>

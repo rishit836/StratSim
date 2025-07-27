@@ -127,30 +127,27 @@
     color: white;
     transition: all .6s ;
 }
-.button-holder button:first-child{
-    padding: 10px 20px;
+.button-holder button:first-of-type{
+    padding:10px 20px;
     border: none;
-    /* border-radius: 8px;
-     */
     border-top-left-radius: 7px;
     border-bottom-left-radius: 7px;
-
     background-color: #181c17;
+
     color: white;
-    transition: all .6s ;
+    transition: all .5s;
 }
 .button-holder button:last-child{
-        padding: 10px 20px;
+    padding: 10px 20px;
     border: none;
-    /* border-radius: 8px;
-     */
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;
 
     background-color: #181c17;
+    
     color: white;
     transition: all .6s ;
 }
-.button-holder button:hover{
+.button-holder button:hover,.button-holder button.active{
     background-color: rgba(255,255,255,.4);
 }
