@@ -12,7 +12,7 @@ from .operations import delete_if_outdated,create_sector
 from .trade import execute_trade
 from .models import holding
 from walletTree import modelling
-
+from django.contrib import messages
 
 import random
 
@@ -201,7 +201,8 @@ def home(request):
             }
         return render(request, 'home.html', context)
     else:
-        return HttpResponse("Please Login/Signup")
+        messages.error(request,"please login,market cannot be accesed without login")
+        return redirect("main:login")
 
 def search(request):
     global filter_applied, filter_cat, list_cat
@@ -350,11 +351,12 @@ error_occured = False
 def load(request):
     global loading_data,r_l,error_occured
     r_l = request
-    if not loading_data:
-        error_occured = False
+    if not loading_data and not error_occured:
         threading.Thread(target=background_loader).start()
         loading_data = True
     if error_occured:
+        messages.error(request,"Yfinance Couldnt Return the data for the requested ticker.")
+        error_occured = False
         return redirect(reverse("stocks:market"))
     if not data_loaded:
         return render(request, 'loader.html')

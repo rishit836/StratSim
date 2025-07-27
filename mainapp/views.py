@@ -99,10 +99,16 @@ def signup(request):
         username = request.POST['username']
         password = request.POST['password']
         email = request.POST['email']
-        u = User.objects.create_user(username=username, email=email, password=password)
-        u.save()
-        messages.success(request, "You have Succesfully signed up and logged in.")
-        login(request,u)
+        user_check = User.objects.filter(username=username)
+        if not user_check.exists():
+            u = User.objects.create_user(username=username, email=email, password=password)
+            u.save()
+            messages.success(request, "You have Succesfully signed up and logged in.")
+            login(request,u)
+        else:
+            print("username already exists")
+            messages.error(request,"username already is taken,try a different username")
+            return redirect("main:signup")
         return redirect('main:home')
     return render(request, 'signup.html')
 

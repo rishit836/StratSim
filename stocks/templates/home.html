@@ -14,6 +14,17 @@
 
 
 <div class="market-container">
+
+
+  {% if messages %}
+        <div id="toast-container">
+            {% for message in messages %}
+            {{message}}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+
     <div class="heading-container">
         <h3 class="heading">welcome to market
             {% if request.user.is_authenticated %}

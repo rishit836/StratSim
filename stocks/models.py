@@ -14,17 +14,12 @@ class Portfolio(models.Model):
     previous_return_percent = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     
     def total_value(self):
-        return self.current_funds
+        return self.current_funds + self.invested_amount
 
     def profit_loss_percent(self):
         if self.initial_funds == 0:
             return 0
-        return ((self.total_value() - self.initial_funds) / self.initial_funds) * 100
-    
-    def profit_loss_percent(self):
-        if self.initial_funds == 0:
-            return 0
-        return ((self.total_value() - self.initial_funds) / self.initial_funds) * 100
+        return ((self.current_funds- self.initial_funds) / self.initial_funds) * 100
     
     def update_return_history(self):
         current_return = self.profit_loss_percent()
