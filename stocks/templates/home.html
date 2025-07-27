@@ -15,13 +15,19 @@
 
 <div class="market-container">
 
-
   {% if messages %}
-        <div id="toast-container">
-            {% for message in messages %}
-            {{message}}
-            {% endfor %}
-        </div>
+
+{% for message in messages %}
+    <div id="snackbar">
+        {{message}}
+    </div>
+{% endfor %}
+<script>
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+
+    setTimeout(function(){x.className=x.className.replace("show","");},6000)
+</script>
     {% endif %}
 
 

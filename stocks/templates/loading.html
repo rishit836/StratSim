@@ -21,12 +21,21 @@
             <span id="countdown">
         </div>
     </div>
+
+    <div class="chart-container">
+      <div class="button-holder">
+        <form action="{% url 'stocks:analyze' ticker %}" method="POST">
+          {% csrf_token %}
+        <button type="submit" value="one-day" name="chart-view">1D</button>
+        <button type="submit" value="one-week" name="chart-view">1W</button>
+        <button type="submit" value="one-month" name="chart-view">1M</button>
+        <button type="submit" value="one-year" name="chart-view">1Y</button>
+        <button type="submit" value="max" name="chart-view">MAX</button>
+        </form>
+      </div>
+    </div>
     <div class="skelton-container">
         <div class="card-container">
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
-            <div class="card"></div>
         </div>
     </div>
 

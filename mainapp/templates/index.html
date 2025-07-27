@@ -9,6 +9,25 @@
 
 {% block body %}
 <div class="dashboard-outer">
+
+
+    {% if messages %}
+
+{% for message in messages %}
+    <div id="snackbar">
+        {{message}}
+    </div>
+{% endfor %}
+<script>
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+
+    setTimeout(function(){x.className=x.className.replace("show","");},6000)
+</script>
+    {% endif %}
+
+
+    
   <div class="dashboard-container{% if not request.user.is_authenticated %} blurred{% endif %}">
     <div class="heading-container">
       <div>

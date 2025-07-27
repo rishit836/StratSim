@@ -1,4 +1,5 @@
 from threading import Thread
+import threading
 import time
 import os
 import datetime
@@ -10,9 +11,8 @@ global mod ,file_counter,file_name
 file_counter = 0
 file_name=None
 def watchdog(t):
-    global mod,watchdog_status
+    global mod
     print("watchdog is runnning")
-    watchdog_status=True
     path = 'data/'+t
     
     try:
@@ -38,8 +38,7 @@ def watchdog(t):
 
 
 def rl_model_train(ticker,data_len):
-    global mod, file_counter,training_status
-    training_status = True
+    global mod, file_counter
     mod = [False] * data_len
     training = False
     
@@ -59,21 +58,26 @@ training_status = False
 
 def bg_handler(ticker,data_len):
     global mod,file_counter,watchdog_status,training_status
+
+
     
+    for th in threading.enumerate():
+        if th.name == "custom_watchdog":
+            watchdog_status = True
+        if th.name == "rl_model_train":
+            training_status = True
     if not watchdog_status:
-        print("watchdog is enabled")
-        watchdog_thread = Thread(target=watchdog, args=(ticker,))
+        watchdog_thread = Thread(target=watchdog,name="custom_watchdog", args=(ticker,))
         watchdog_thread.start()
         
-        
-
     else:
         print("already runnning no need for starting another subprocess for watchdog")
 
     if not training_status:
         print("second process started")
-        training_model_thread = Thread(target=rl_model_train,args=(ticker,data_len,))
+        training_model_thread = Thread(target=rl_model_train,name="rl_model_train",args=(ticker,data_len,))
         training_model_thread.start()
+        
     else:
         print("already running no need for starting another subprocess for training ")
 

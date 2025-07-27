@@ -368,5 +368,8 @@ def load(request):
 def analyze(request,ticker):
     print("ticker analysis started for ticker:", ticker)
     c = {"ticker":ticker}
+    if request.method == "POST":
+        chart_view = request.POST.get("chart-view")
+        print(chart_view)
     # return render(request,"analyze.html",c)
     return redirect(reverse("wallettree:scrape",args=[ticker]))

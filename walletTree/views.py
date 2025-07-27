@@ -122,8 +122,13 @@ def scrape(request,ticker):
         data = ticker.history(period="1y")
         expected_time = (len(data['Close'])/5)*60
         # expected_time = 3000
-        bg_op_thread = threading.Thread(target=bg_handler,args=(t,len(data['Close']),))
-        bg_op_thread.start()
+        handler_running = False
+        for th in threading.enumerate():
+            if th.name =="handler":
+                handler_running = True
+        if not handler_running:
+            bg_op_thread = threading.Thread(target=bg_handler,name="handler",args=(t,len(data['Close']),))
+            bg_op_thread.start()
         c.update({"time":expected_time})
         # data['date'] = data.index
         # data.reset_index(inplace=True,drop=True)

@@ -97,3 +97,60 @@
     transform: translateX(calc(1 * var(--cardwidth)));
   }
 }
+
+
+.chart-container{
+    display: flex;;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* border: 2px solid red; */
+}
+.button-holder{
+    display:flex;
+    flex-direction: row;
+    gap: 23px;;
+    margin: 8px 0px;
+    width: 70%;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: #181c17;
+    border-radius: 7px;
+}
+.button-holder button{
+    padding: 10px 20px;
+    border: none;
+    background-color: #181c17;
+    color: white;
+    transition: all .6s ;
+}
+.button-holder button:first-child{
+    padding: 10px 20px;
+    border: none;
+    /* border-radius: 8px;
+     */
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+
+    background-color: #181c17;
+    color: white;
+    transition: all .6s ;
+}
+.button-holder button:last-child{
+        padding: 10px 20px;
+    border: none;
+    /* border-radius: 8px;
+     */
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+
+    background-color: #181c17;
+    color: white;
+    transition: all .6s ;
+}
+.button-holder button:hover{
+    background-color: rgba(255,255,255,.4);
+}
