@@ -12,6 +12,7 @@ from .bg_operations import bg_handler
 from stocks.views import chart_view
 from django.core.cache import cache
 
+
 global status
 
 def fetch_data(date, ticker, interval="1"):
@@ -109,11 +110,51 @@ def get_data(data):
     '''
     print("Data Already exists or fetched.")
 
-def scrape(request,ticker):
-    global t,status
-    chart_view = cache.get("chart_view")
-    c= {}
+def get_data(ticker,period:str="1y"):
+    try:
+        t = yf.Ticker(ticker=ticker)
+        if period =="1d":
+            data = t.history(period=period,interval="1m")
+        else:
+            data = t.history(period=period)
+        df = pd.DataFrame(data)
+        df['date'] = pd.to_datetime(df.index)
+        if period == "1y":
+            df['date']=df['date'].dt.strftime("%d-%m-%y")
+        if period == "1d":
+            df['date']=df['date'].dt.strftime("%H:%M:%S")
+        df.reset_index(inplace=True)
+        name = str(ticker) + "_"+period
+        cache.set(name,df,timeout=60*60*24)
+        return True
+    except:
+        return False
+    
+global data_loaded
 
+data_loaded = False
+def retrieve_data(ticker):
+    global data_loaded
+    d_lst = ['1d', '5d', '1mo',  'max']
+    for period in d_lst:
+        stat = get_data(ticker,period)
+        if not stat:
+            print("error getting data for",ticker,"for period:",period)
+            return False
+    data_loaded = True
+    
+def scrape(request,ticker):
+    global t,status,data_loaded
+    chart_view = cache.get("chart_view")
+    name = str(ticker) + "_"
+    d_lst = ['1d', '5d', '1mo',  'max']
+
+
+    c= {}
+    if not data_loaded:
+        stat = get_data(ticker)
+        view_data_thread = threading.Thread(target=retrieve_data, args=[ticker,], name="view_data_retrieve")
+        view_data_thread.start()
     # if os.path.exists("models/"+ticker+"_model.pkl"):
     #     status = True
     # else:
@@ -134,6 +175,11 @@ def scrape(request,ticker):
             bg_op_thread = threading.Thread(target=bg_handler,name="handler",args=(t,len(data['Close']),))
             bg_op_thread.start()
         c.update({"time":expected_time})
+        c.update({"data_1y":cache.get(name+"1y")})
+        if data_loaded:
+             for period in d_lst:
+                c.update({"data_"+period:cache.get(name+period)})
+
         # data['date'] = data.index
         # data.reset_index(inplace=True,drop=True)
         # data['date'] = pd.to_datetime(data['date'])
