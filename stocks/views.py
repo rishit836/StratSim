@@ -162,6 +162,7 @@ def create_data():
             values_not_seg.append(row['sectors'])
             secs.append(row['sectors'])
     full_df['sectors'] = secs
+    print(secs)
     print('/n'*5)
     print(values_not_seg)
     full_df.to_csv("data.csv",index=False)

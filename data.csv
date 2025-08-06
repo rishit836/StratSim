@@ -1,76 +1,76 @@
 symbol,name,current_price,price_change,percent_change,list_type,sectors
-SCLX,Scilex Holding Company,15.52,3.56,29.7659,TOP 100,healthcare
-STEM,"Stem, Inc.",18.91,3.92,26.1508,TOP 100,technology
-NEGG,"Newegg Commerce, Inc.",39.08,4.77,13.9027,TOP 100,Retail
-LYEL,"Lyell Immunopharma, Inc.",13.73,1.31,10.5475,TOP 100,Biotechnology
-SMCI,"Super Micro Computer, Inc.",60.05,5.58,10.2442,TOP 100,technology
-ACMR,"ACM Research, Inc.",31.98,2.05,6.84931,TOP 100,technology
-ANF,Abercrombie & Fitch Company,98.63,6.29,6.81178,TOP 100,Retail
-CRDO,Credo Technology Group Holding ,107.95,6.73,6.64888,TOP 100,technology
-CUBI,"Customers Bancorp, Inc",65.74,4.05,6.56508,TOP 100,finance
-WGS,GeneDx Holdings Corp.,84.91,5.08,6.36352,TOP 100,healthcare
-CIVI,"Civitas Resources, Inc.",32.88,1.78,5.72347,TOP 100,energy
-SGRY,"Surgery Partners, Inc.",22.44,1.18,5.55033,TOP 100,healthcare
-PTEN,"Patterson-UTI Energy, Inc.",6.24,0.32,5.4054,TOP 100,energy
-NICE,NICE Ltd,170.37,7.95,4.89472,TOP 100,technology
-M,Macy's Inc,13.72,0.64,4.89297,TOP 100,Retail
-BRKR,Bruker Corporation,43.93,1.99,4.74488,TOP 100,healthcare
-SKYW,"SkyWest, Inc.",117.52,5.21999,4.64826,TOP 100,technology
-AMD,"Advanced Micro Devices, Inc.",173.66,7.19,4.3191,TOP 100,technology
-NOG,"Northern Oil and Gas, Inc.",29.71,1.23,4.31882,TOP 100,energy
-SM,SM Energy Company,28.76,1.19,4.31629,TOP 100,energy
-OLLI,Ollie's Bargain Outlet Holdings,139.34,5.61,4.19502,TOP 100,Retail
-SOC,Sable Offshore Corp.,29.84,1.2,4.18995,TOP 100,energy
-DINO,HF Sinclair Corporation,44.98,1.8,4.16859,TOP 100,energy
-ALK,"Alaska Air Group, Inc.",54.33,2.17,4.16028,TOP 100,technology
-COHR,Coherent Corp.,104.3,4.16,4.15419,TOP 100,technology
-NVDA,NVIDIA Corporation,176.75,3.25,1.8732,MOST ACTIVE,technology
-TSLA,"Tesla, Inc.",325.59,9.53,3.01525,MOST ACTIVE,technology
-WBD,"Warner Bros. Discovery, Inc. - ",13.7,0.21,1.55671,MOST ACTIVE,technology
-INTC,Intel Corporation,20.68,-0.0200005,-0.0966206,MOST ACTIVE,technology
-LCID,"Lucid Group, Inc.",2.79,-0.13,-4.45206,MOST ACTIVE,technology
-AAL,"American Airlines Group, Inc.",11.58,0.0799999,0.695651,MOST ACTIVE,technology
-SMCI,"Super Micro Computer, Inc.",60.05,5.58,10.2442,MOST ACTIVE,technology
-AMD,"Advanced Micro Devices, Inc.",173.66,7.19,4.3191,MOST ACTIVE,technology
-PLTR,Palantir Technologies Inc.,157.88,-0.919998,-0.579344,MOST ACTIVE,technology
-QS,QuantumScape Corporation,10.98,-0.990001,-8.27068,MOST ACTIVE,technology
-SOFI,"SoFi Technologies, Inc.",21.02,-0.18,-0.849058,MOST ACTIVE,finance
-F,Ford Motor Company,11.28,-0.190001,-1.6565,MOST ACTIVE,technology
-PBR,Petroleo Brasileiro S.A. Petrob,12.55,-0.0500002,-0.396827,MOST ACTIVE,energy
-RIOT,"Riot Platforms, Inc.",14.51,-0.0299997,-0.206326,MOST ACTIVE,technology
-VALE,VALE S.A.,9.84,-0.16,-1.6,MOST ACTIVE,energy
-NIO,NIO Inc.,4.83,-0.0900002,-1.82927,MOST ACTIVE,technology
-STLA,Stellantis N.V.,9.7,-0.43,-4.24482,MOST ACTIVE,technology
-MARA,"MARA Holdings, Inc.",17.16,-0.0900002,-0.52174,MOST ACTIVE,technology
-BBD,Banco Bradesco Sa,2.75,-0.05,-1.78571,MOST ACTIVE,finance
-JOBY,"Joby Aviation, Inc.",17.16,-0.940001,-5.19337,MOST ACTIVE,technology
-NU,Nu Holdings Ltd.,12.61,-0.12,-0.942654,MOST ACTIVE,finance
-QBTS,D-Wave Quantum Inc.,18.35,-0.52,-2.7557,MOST ACTIVE,technology
-KEY,KeyCorp,18.44,-0.129999,-0.700049,MOST ACTIVE,finance
-PSLV,"""Sprott Physical Silver Trust""",12.92,-0.0199995,-0.154556,MOST ACTIVE,None
-CMG,"Chipotle Mexican Grill, Inc.",44.86,-1.9,-4.0633,MOST ACTIVE,"Hotels, Restaurants & Leisure"
-ATUS,"Altice USA, Inc.",2.62,-0.0600002,-2.23881,TRENDING,technology
-JBLU,JetBlue Airways Corporation,4.36,-0.02,-0.456621,TRENDING,technology
-SID,Companhia Siderurgica Nacional ,1.44,-0.0899999,-5.88235,TRENDING,energy
-KOS,Kosmos Energy Ltd.,2.39,0.17,7.65766,TRENDING,energy
-DOLE,Dole plc,14.48,0.0699997,0.485772,TRENDING,healthcare
-AVIR,"Atea Pharmaceuticals, Inc.",3.79,-0.11,-2.82052,TRENDING,healthcare
-LAC,Lithium Americas Corp.,2.83,-0.22,-7.21312,TRENDING,energy
-SONO,"Sonos, Inc.",11.44,0.19,1.68889,TRENDING,healthcare
-VMEO,"Vimeo, Inc.",4.03,-0.0599999,-1.46699,TRENDING,technology
-GPRO,"GoPro, Inc.",1.41,-0.1,-6.62252,TRENDING,healthcare
-BFLY,"Butterfly Network, Inc.",1.94,-0.03,-1.52284,TRENDING,healthcare
-USA,Liberty All-Star Equity Fund,6.66,-0.02,-0.299401,TRENDING,None
-ABCL,AbCellera Biologics Inc.,4.92,-0.19,-3.7182,TRENDING,healthcare
-CHGG,"Chegg, Inc.",1.49,-0.09,-5.6962,TRENDING,technology
-PGRE,"Paramount Group, Inc.",6.23,-0.15,-2.3511,TRENDING,estate
-BMBL,Bumble Inc.,7.93,-0.29,-3.52799,TRENDING,technology
-BDN,Brandywine Realty Trust,4.02,-0.0700002,-1.7115,TRENDING,estate
-SHO,"Sunstone Hotel Investors, Inc. ",8.98,-0.0400009,-0.443469,TRENDING,estate
-YQ,17 Education & Technology Group,2.07,0.029899836,1.4656063,TRENDING,technology
-BKD,Brookdale Senior Living Inc.,7.49,-0.0200005,-0.266318,TRENDING,healthcare
-CIM,Chimera Investment Corporation,13.86,-0.21,-1.49254,TRENDING,estate
-SCS,Steelcase Inc.,10.85,0.27,2.55199,TRENDING,technology
-INVA,"Innoviva, Inc.",18.54,-0.179998,-0.96153,TRENDING,healthcare
-HPP,"Hudson Pacific Properties, Inc.",2.42,-0.0999999,-3.96825,TRENDING,estate
-AGL,"agilon health, inc.",1.99,-0.0699999,-3.39806,TRENDING,healthcare
+SEAT,Vivid Seats Inc.,30.89,10.49,51.42157,TOP 100,technology
+VSAT,"ViaSat, Inc.",27.92,6.629999,31.141376,TOP 100,Communications
+ALAB,"Astera Labs, Inc.",175.74,40.200012,29.659151,TOP 100,technology
+ZETA,Zeta Global Holdings Corp.,19.93,4.0600004,25.582863,TOP 100,technology
+RNG,"Ringcentral, Inc.",29.39,5.7699986,24.428444,TOP 100,technology
+RNA,"Avidity Biosciences, Inc.",47.6,9.34,24.411919,TOP 100,Biotechnology
+SHOP,Shopify Inc.,152.165,25.164993,19.811054,TOP 100,technology
+ANET,"Arista Networks, Inc.",139.32,21.200005,17.947853,TOP 100,Communications
+CPRI,Capri Holdings Limited,21.23,3.0299988,16.648344,TOP 100,"Textiles, Apparel & Luxury Goods"
+EXTR,"Extreme Networks, Inc.",20.5456,2.8756008,16.297527,TOP 100,Communications
+LEU,Centrus Energy Corp.,249.39,35.589996,16.646397,TOP 100,energy
+KVYO,"Klaviyo, Inc. Series A",35.615,4.915001,16.009775,TOP 100,technology
+LRN,"Stride, Inc.",147.61,19.380005,15.113472,TOP 100,technology
+SSRM,SSR Mining Inc.,14.9384,1.9484005,15.0079,TOP 100,energy
+ANGI,Angi Inc.,18.02,2.3500004,14.996811,TOP 100,technology
+SUPN,"Supernus Pharmaceuticals, Inc.",42.965,5.4350014,14.481751,TOP 100,healthcare
+NYT,New York Times Company (The),61.31,7.6900024,14.340332,TOP 100,technology
+WWW,"Wolverine World Wide, Inc.",26.795,3.295,14.021276,TOP 100,"Textiles, Apparel & Luxury Goods"
+GBTG,"Global Business Travel Group, I",7.335,0.83500004,12.846154,TOP 100,"Hotels, Restaurants & Leisure"
+PAYO,Payoneer Global Inc.,7.27,0.77,11.846154,TOP 100,finance
+KAR,"OPENLANE, Inc.",27.905,2.8649998,11.441691,TOP 100,technology
+AIZ,"Assurant, Inc.",209.07,20.240005,10.718638,TOP 100,finance
+INTR,Inter & Co. Inc.,7.165,0.63499975,9.724345,TOP 100,finance
+MTCH,"Match Group, Inc.",36.79,3.0600014,9.072046,TOP 100,technology
+LIVN,LivaNova PLC,46.62,4.0099983,9.410932,TOP 100,healthcare
+SNAP,Snap Inc.,7.6799,-1.7101002,-18.222212,MOST ACTIVE,technology
+AMD,"Advanced Micro Devices, Inc.",162.775,-11.535004,-6.6175227,MOST ACTIVE,technology
+LCID,"Lucid Group, Inc.",2.205,-0.21500015,-8.884303,MOST ACTIVE,technology
+NVDA,NVIDIA Corporation,178.203,-0.056991577,-0.031970683,MOST ACTIVE,technology
+SMCI,"Super Micro Computer, Inc.",45.17,-12.09,-21.117867,MOST ACTIVE,technology
+AAPL,Apple Inc.,214.32,11.400009,5.6179824,MOST ACTIVE,technology
+PLTR,Palantir Technologies Inc.,177.085,3.8150024,2.2017674,MOST ACTIVE,technology
+TSLA,"Tesla, Inc.",317.02,8.299988,2.6885164,MOST ACTIVE,technology
+RIVN,"Rivian Automotive, Inc.",11.6718,-0.47819996,-3.9347334,MOST ACTIVE,technology
+DNN,Denison Mines Corp,2.275,0.035000086,1.5625038,MOST ACTIVE,energy
+ZETA,Zeta Global Holdings Corp.,19.93,4.0600004,25.582863,MOST ACTIVE,technology
+AAL,"American Airlines Group, Inc.",11.545,-0.09500027,-0.81650424,MOST ACTIVE,technology
+INTC,Intel Corporation,20.315,0.125,0.61911833,MOST ACTIVE,technology
+PBR,Petroleo Brasileiro S.A. Petrob,13.09,0.1800003,1.3942704,MOST ACTIVE,energy
+U,Unity Software Inc.,30.825,-3.1149979,-9.177956,MOST ACTIVE,technology
+PFE,"Pfizer, Inc.",23.955,-0.7950001,-3.2121215,MOST ACTIVE,healthcare
+F,Ford Motor Company,11.2091,0.14909935,1.3480953,MOST ACTIVE,technology
+HIMS,"Hims & Hers Health, Inc.",50.6294,-4.890602,-8.808722,MOST ACTIVE,healthcare
+NIO,NIO Inc.,4.605,0.10500002,2.3333337,MOST ACTIVE,technology
+UBER,"Uber Technologies, Inc.",88.215,-1.175003,-1.3144681,MOST ACTIVE,Road & Rail
+SHOP,Shopify Inc.,152.209,25.209,19.856485,MOST ACTIVE,technology
+AMZN,"Amazon.com, Inc.",219.8129,6.0628967,2.836443,MOST ACTIVE,Retail
+QBTS,D-Wave Quantum Inc.,17.71,-0.59000015,-3.2240448,MOST ACTIVE,technology
+WBD,"Warner Bros. Discovery, Inc. - ",12.85,0.13000011,1.0220134,MOST ACTIVE,technology
+NVO,Novo Nordisk A/S,45.455,-1.7649994,-3.7378216,MOST ACTIVE,healthcare
+ATUS,"Altice USA, Inc.",2.39,-0.029999971,-1.2396683,TRENDING,technology
+JBLU,JetBlue Airways Corporation,4.3,-0.059999943,-1.375609,TRENDING,technology
+SID,Companhia Siderurgica Nacional ,1.355,0.014999986,1.1194019,TRENDING,energy
+KOS,Kosmos Energy Ltd.,1.9,0.059999943,3.2608664,TRENDING,energy
+DOLE,Dole plc,14.155,0.05499935,0.39006633,TRENDING,healthcare
+AVIR,"Atea Pharmaceuticals, Inc.",3.54,0.01999998,0.5681813,TRENDING,healthcare
+LAC,Lithium Americas Corp.,2.5602,-0.06980014,-2.6491625,TRENDING,energy
+SONO,"Sonos, Inc.",11.01,0.15000057,1.3812208,TRENDING,healthcare
+VMEO,"Vimeo, Inc.",4.115,-0.015000343,-0.36364463,TRENDING,technology
+GPRO,"GoPro, Inc.",1.28,-0.04000008,-3.0102408,TRENDING,healthcare
+BFLY,"Butterfly Network, Inc.",1.355,-0.004999995,-0.3676467,TRENDING,healthcare
+USA,Liberty All-Star Equity Fund,6.483,0.022999763,0.35618234,TRENDING,None
+ABCL,AbCellera Biologics Inc.,4.155,-0.20499992,-4.701833,TRENDING,healthcare
+CHGG,"Chegg, Inc.",1.101,-0.18900001,-14.651164,TRENDING,technology
+PGRE,"Paramount Group, Inc.",6.34,-0.07999992,-1.2461047,TRENDING,estate
+BMBL,Bumble Inc.,7.445,-0.10500002,-1.3907287,TRENDING,technology
+BDN,Brandywine Realty Trust,4.02,0.07999992,2.0304034,TRENDING,estate
+DBRG,"DigitalBridge Group, Inc.",10.5,0.069999695,0.671138,TRENDING,finance
+SHO,"Sunstone Hotel Investors, Inc. ",8.535,-0.23500061,-2.6795964,TRENDING,estate
+YQ,17 Education & Technology Group,1.84,0.0,0.0,TRENDING,technology
+STEM,"Stem, Inc.",11.785,-0.125,-1.0495383,TRENDING,technology
+BKD,Brookdale Senior Living Inc.,7.855,-0.025000095,-0.3172601,TRENDING,healthcare
+CIM,Chimera Investment Corporation,13.47,-0.09999943,-0.73691547,TRENDING,estate
+SCS,Steelcase Inc.,16.01,0.05000019,0.3132844,TRENDING,technology
+EVCM,EverCommerce Inc.,10.155,0.13499928,1.3452841,TRENDING,technology

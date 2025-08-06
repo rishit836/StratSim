@@ -1,4 +1,5 @@
 from django.shortcuts import render,HttpResponse
+from django.http import JsonResponse
 
 # Create your views here.
 import random
@@ -117,6 +118,11 @@ def get_data(ticker,period:str="1y"):
             data = t.history(period=period,interval="1m")
         else:
             data = t.history(period=period)
+        
+        # Check if DataFrame is empty
+        if data.empty:
+            return False
+            
         df = pd.DataFrame(data)
         df['date'] = pd.to_datetime(df.index)
         if period == "1y":
@@ -127,7 +133,8 @@ def get_data(ticker,period:str="1y"):
         name = str(ticker) + "_"+period
         cache.set(name,df,timeout=60*60*24)
         return True
-    except:
+    except Exception as e:
+        print(f"Error getting data: {e}")
         return False
     
 global data_loaded
@@ -147,6 +154,7 @@ def scrape(request,ticker):
     global t,status,data_loaded
     chart_view = cache.get("chart_view")
     name = str(ticker) + "_"
+    cache.set("data_name",name,timeout=60*60*24)
     d_lst = ['1d', '5d', '1mo',  'max']
 
 
@@ -161,6 +169,7 @@ def scrape(request,ticker):
     #     status= False
     status= True
     t = ticker.upper()
+    expected_time = 3000
     if not status:
         t = ticker.upper()
         ticker = yf.Ticker(t)
@@ -175,20 +184,55 @@ def scrape(request,ticker):
             bg_op_thread = threading.Thread(target=bg_handler,name="handler",args=(t,len(data['Close']),))
             bg_op_thread.start()
         c.update({"time":expected_time})
-        c.update({"data_1y":cache.get(name+"1y")})
-        if data_loaded:
-             for period in d_lst:
-                c.update({"data_"+period:cache.get(name+period)})
+    c.update({"data_1y":cache.get(name+"1y")})
+    c.update({"time":expected_time})
 
-        # data['date'] = data.index
-        # data.reset_index(inplace=True,drop=True)
-        # data['date'] = pd.to_datetime(data['date'])
-        # data['date'] = data['date'].dt.strftime('%Y-%m-%d')
-        # threading.Thread(target=get_data,args=[data]).start()
+    if data_loaded:
+        for period in d_lst:
+            c.update({"data_"+period:cache.get(name+period)})
     c.update({"ticker":t.upper()})
     c.update({"active_view":chart_view})
+    print(c.keys())
     return render(request,"loading.html",context=c)
     
+
+
+def chart_data(request):
+    chart_view = cache.get("chart_view")
+    name = cache.get("data_name")
+    if chart_view.lower() == "one-day":
+        d = cache.get(name+"1d")
+        data = {
+                "labels": d['date'].to_list(),
+                "values": d['Close'].to_list()
+            }
+    if chart_view.lower() == "one-year":
+        d = cache.get(name+"1y")
+        data = {
+                "labels": d['date'].to_list(),
+                "values": d['Close'].to_list()
+            }
+    if chart_view.lower() == "one-week":
+        d = cache.get(name+"5d")
+        data = {
+                "labels": d['date'].to_list(),
+                "values": d['Close'].to_list()
+            }
+    if chart_view.lower() == "one-month":
+        d = cache.get(name+"1mo")
+        data = {
+                "labels": d['date'].to_list(),
+                "values": d['Close'].to_list()
+            }
+    if chart_view.lower() == "max":
+        d = cache.get(name+"max")
+        data = {
+                "labels": d['date'].to_list(),
+                "values": d['Close'].to_list()
+            }
+
+
+    return JsonResponse(data)
 
 
 

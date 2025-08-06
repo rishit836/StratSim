@@ -3,6 +3,7 @@
 {% block pagename %}WalletTree{% endblock pagename %}
 {% block header %}
 <link rel="stylesheet" href="{% static 'stocks/styles/skelton_load.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock header %}
 
 
@@ -33,9 +34,15 @@
         <button type="submit" value="max" name="chart-view" {% if active_view|lower == "max" %}class="active"{%else%}class=""{% endif %}>MAX</button>
         </form>
       </div>
+
+      <div class="chart">
+        <canvas id="stock-chart"></canvas>
+      </div>
+
     </div>
     <div class="skelton-container">
         <div class="card-container">
+          {{active_view}}
         </div>
     </div>
 
@@ -43,11 +50,71 @@
 
 </div>
 <script>
+fetch("{% url 'wallettree:data_chart'  %}")
+  .then(response => response.json())
+  .then(data => {
+    const ctx = document.getElementById('stock-chart').getContext('2d');
+
+    // Create gradient fill like second chart
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(144, 238, 144, 0.5)');  // Light green top
+    gradient.addColorStop(1, 'rgba(144, 238, 144, 0.05)'); // Transparent bottom
+
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: data.labels,
+        datasets: [{
+          label: 'Stock Price',
+          data: data.values,
+          borderColor: 'lightgreen',
+          backgroundColor: gradient,
+          fill: true,         // 👈 enables area fill
+          tension:1,       // 👈 curve smoothing
+          pointRadius: 0,     // 👈 hide points for smooth look
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { display: false },  // optional: hide legend for minimal look
+        },
+        animations: {
+          tension: {
+            duration: 2300,
+            easing: 'linear',
+            from: .7,
+            to: .3,
+            loop: true
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: '#a0a0a0',
+              font: {
+                size: 10,
+              },
+              maxRotation: 0,
+              autoSkip: true,
+              maxTicksLimit: 7, // 👈 match "Day 1", "Day 5", etc.
+            },
+            grid: {
+              display: false
+            }
+          },
+          y: {
+            display: false
+          }
+        }
+      }
+    });
+  });
+
   // Get countdown time in seconds from Jinja
 
   
-  // let totalSeconds = {{time}} ; 
-  let totalSeconds = 3000;
+  let totalSeconds = parseInt("{{time}} ");
+  // let totalSeconds = 3000;
 
   function formatTime(seconds) {
     const m = String(Math.floor(seconds / 60)).padStart(2, '0');
