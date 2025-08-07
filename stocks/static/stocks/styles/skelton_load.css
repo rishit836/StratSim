@@ -49,55 +49,6 @@
     align-items: center;
     flex-wrap: wrap;
 }
-.card{
-    min-width: var(--cardwidth);
-    min-height: var(--cardheight);
-    border: none;
-    border-radius: 12px;
-    margin: 15px 15px;
-    background-color: rgba(0,0,0,.5);
-    overflow: hidden;
-}
-
-.card::after{
-  content: "";
-  position: absolute;
-  background-color: rgba(255,255,255,.023);
-  min-width: 100%;
-  min-height: 100%;
-  border: none;
-  border-radius: 12px;
-  animation:shimmer 1.5s infinite ;
-}
-/* 
-@keyframes shimmer {
-    0%{
-    background-color: rgba(255,255,255,.023);
-    min-width: 100%;
-    transform: translateX(-var(--cardwidth));
-    
-
-
-    }
-    100%{
-    background-color: rgba(255,255,255,.023);
-    min-width: 100%;
-    
-    transform: translateX(var(--cardwidth));
-        
-    }
-
-    
-} */
-@keyframes shimmer {
-  0% {
-    transform: translateX(calc(-1 * var(--cardwidth)));
-  }
-  100% {
-    transform: translateX(calc(1 * var(--cardwidth)));
-  }
-}
-
 
 .chart-container{
     display: flex;;
@@ -154,3 +105,9 @@
 .button-holder button:hover,.button-holder button.active{
     background-color: rgba(255,255,255,.4);
 }
+
+.chart{
+    width: 60%;
+    
+}
+.card-
