@@ -84,7 +84,7 @@ def bg_handler(ticker,data_len):
 
 
 
-    
+
 
 
 

@@ -154,14 +154,19 @@ def scrape(request,ticker):
     global t,status,data_loaded
     chart_view = cache.get("chart_view")
     name = str(ticker) + "_"
-    cache.set("data_name",name,timeout=60*60*24)
-    
-    if cache.get("data_name") is not None:
-        if not cache.get("data_name") == name:
-            data_loaded = False
-            cache.set("data_name",name,timeout=60*60*24)
+
+
+    if not cache.get("data_name") == name:
+        data_loaded = False
+        print("new ticker data loaded.")
+        cache.set("data_name",name,timeout=60*60*24)
+        cache.set("chart_view","one-year",timeout=60*60*24)
+
     d_lst = ['1d', '5d', '1mo',  'max']
+    cache.set("data_name",name,timeout=60*60*24)
     c= {}
+
+
     if not data_loaded:
         stat = get_data(ticker)
         view_data_thread = threading.Thread(target=retrieve_data, args=[ticker,], name="view_data_retrieve")
@@ -195,7 +200,7 @@ def scrape(request,ticker):
             c.update({"data_"+period:cache.get(name+period)})
     c.update({"ticker":t.upper()})
     c.update({"active_view":chart_view})
-    print(c.keys())
+
     return render(request,"loading.html",context=c)
     
 
@@ -234,8 +239,10 @@ def chart_data(request):
                 "values": d['Close'].to_list()
             }
 
-
-    return JsonResponse(data)
+    if not data is None:
+        return JsonResponse(data)
+    else:
+        return JsonResponse("Error Fetching Data")
 
 
 
