@@ -105,11 +105,18 @@ fetch("{% url 'wallettree:data_chart'  %}")
               maxTicksLimit: 7, // 👈 match "Day 1", "Day 5", etc.
             },
             grid: {
-              display: false
+              display:true,
+              color:'rgba(255,255,255,.2)',
+              border:false
             }
           },
           y: {
-            display: false
+            display: true,
+            grid:{
+              display:true,
+              color:'rgba(255,255,255,.2)',
+              border:false
+            }
           }
         }
       }
