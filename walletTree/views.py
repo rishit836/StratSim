@@ -12,6 +12,7 @@ import threading
 from .bg_operations import bg_handler
 from stocks.views import chart_view
 from django.core.cache import cache
+from .indicators import compute_indicators
 
 
 global status
@@ -85,8 +86,6 @@ def get_data(data):
     # polygon api limits 5apicall/minute
     now_time = datetime.now()
     time_limit = now_time + dt.timedelta(minutes=1)
-
-
     # for now
     '''
     for date in data['date']:
@@ -111,7 +110,7 @@ def get_data(data):
     '''
     print("Data Already exists or fetched.")
 
-def get_data(ticker,period:str="1y"):
+def get_data_for_view(ticker,period:str="1y"):
     try:
         t = yf.Ticker(ticker=ticker)
         if period =="1d":
@@ -124,6 +123,7 @@ def get_data(ticker,period:str="1y"):
             return False
             
         df = pd.DataFrame(data)
+        _result_ = compute_indicators(df)
         df['date'] = pd.to_datetime(df.index)
         if period == "1y":
             df['date']=df['date'].dt.strftime("%d-%m-%y")
@@ -131,7 +131,11 @@ def get_data(ticker,period:str="1y"):
             df['date']=df['date'].dt.strftime("%H:%M:%S")
         df.reset_index(inplace=True)
         name = str(ticker) + "_"+period
+        for keys in _result_.keys():
+            df[str(keys)] = _result_[keys]
+        print(df.head())
         cache.set(name,df,timeout=60*60*24)
+        cache.set(str(period)+"_result",_result_, timeout=60*60*24)
         return True
     except Exception as e:
         print(f"Error getting data: {e}")
@@ -144,7 +148,7 @@ def retrieve_data(ticker):
     global data_loaded
     d_lst = ['1d', '5d', '1mo',  'max']
     for period in d_lst:
-        stat = get_data(ticker,period)
+        stat = get_data_for_view(ticker,period)
         if not stat:
             print("error getting data for",ticker,"for period:",period)
             return False
@@ -154,7 +158,7 @@ def scrape(request,ticker):
     global t,status,data_loaded
     chart_view = cache.get("chart_view")
     name = str(ticker) + "_"
-
+    
 
     if not cache.get("data_name") == name:
         data_loaded = False
@@ -165,12 +169,11 @@ def scrape(request,ticker):
     d_lst = ['1d', '5d', '1mo',  'max']
     cache.set("data_name",name,timeout=60*60*24)
     c= {}
-
-
     if not data_loaded:
-        stat = get_data(ticker)
+        stat = get_data_for_view(ticker)
         view_data_thread = threading.Thread(target=retrieve_data, args=[ticker,], name="view_data_retrieve")
-        view_data_thread.start()
+        view_data_thread.start() 
+
     # if os.path.exists("models/"+ticker+"_model.pkl"):
     #     status = True
     # else:
@@ -193,14 +196,18 @@ def scrape(request,ticker):
             bg_op_thread.start()
         c.update({"time":expected_time})
     c.update({"data_1y":cache.get(name+"1y")})
+    c.update({"result_1y":cache.get("1y_result")})
+
     c.update({"time":expected_time})
 
     if data_loaded:
         for period in d_lst:
             c.update({"data_"+period:cache.get(name+period)})
+            c.update({"result_"+period:cache.get(str(period)+"_result")})
     c.update({"ticker":t.upper()})
     c.update({"active_view":chart_view})
-
+    with open("loading_context.txt","w") as f:
+        f.write(str(c))
     return render(request,"loading.html",context=c)
     
 
@@ -208,41 +215,64 @@ def scrape(request,ticker):
 def chart_data(request):
     chart_view = cache.get("chart_view")
     name = cache.get("data_name")
+    period_code = None  # track period string used for indicators cache key
     if chart_view.lower() == "one-day":
         d = cache.get(name+"1d")
+        period_code = "1d"
         data = {
                 "labels": d['date'].to_list(),
                 "values": d['Close'].to_list()
             }
     if chart_view.lower() == "one-year":
         d = cache.get(name+"1y")
+        period_code = "1y"
         data = {
                 "labels": d['date'].to_list(),
                 "values": d['Close'].to_list()
             }
     if chart_view.lower() == "one-week":
         d = cache.get(name+"5d")
+        period_code = "5d"
         data = {
                 "labels": d['date'].to_list(),
                 "values": d['Close'].to_list()
             }
     if chart_view.lower() == "one-month":
         d = cache.get(name+"1mo")
+        period_code = "1mo"
         data = {
                 "labels": d['date'].to_list(),
                 "values": d['Close'].to_list()
             }
     if chart_view.lower() == "max":
         d = cache.get(name+"max")
+        period_code = "max"
         data = {
                 "labels": d['date'].to_list(),
                 "values": d['Close'].to_list()
             }
+    if data is None:
+        return JsonResponse({"error": "Error Fetching Data"}, status=400)
 
-    if not data is None:
-        return JsonResponse(data)
-    else:
-        return JsonResponse("Error Fetching Data")
+    # Append indicators (minimal backend change): pull cached result dict
+    indicators_payload = []
+    if period_code:
+        result_dict = cache.get(period_code+"_result")
+        if result_dict:
+            try:
+                for k, v in result_dict.items():
+                    # v expected to be a pandas Series
+                    try:
+                        indicators_payload.append({
+                            "name": k,
+                            "data": [None if pd.isna(x) else float(x) for x in v.tolist()]
+                        })
+                    except Exception:
+                        pass
+            except Exception:
+                pass
+    data["indicators"] = indicators_payload
+    return JsonResponse(data)
 
 
 
