@@ -120,53 +120,58 @@ def generate_data(d):
 
 def create_data():
     global data_generated,finnhub_to_button_category
-    print("Fetching Data")
-
-    top_100 = generate_data('day_gainers')
-    print("Data Generated:top100")
-
-    most_active = generate_data('most_actives')
-    print("Data Generated:most_active")
-
-    trend = generate_data('aggressive_small_caps')
-    print("Data Generated:trend")
-
-    if not "list_type" in top_100.columns:
-        top_100["list_type"] = ["TOP 100" for i in range(len(top_100['symbol'].to_list()))]
-    if not "list_type" in most_active.columns:
-        most_active["list_type"] = ["MOST ACTIVE" for i in range(len(most_active['symbol'].to_list()))]
-    if not "list_type" in trend.columns:
-        trend["list_type"] = ["TRENDING" for i in range(len(trend['symbol'].to_list()))]
-
-
-    full_df_lst = [top_100,most_active,trend]
-    full_df = pd.concat(full_df_lst)
-    full_df.to_csv("data.csv",index=False)
+    try:
     
-    print("Data Generated and Saved.Now Creating Sectors...")
-    sectors = create_sector()
-    sec_column = []
-    for num,row in full_df.iterrows():
-        if row['symbol'] in sectors.keys():
-            sec_column.append(sectors[row['symbol']])
-        else:
-            sec_column.append("None")
-    full_df['sectors'] = sec_column
-    secs = []
-    values_not_seg = []
-    for num,row in full_df.iterrows():
-        if row['sectors'] in finnhub_to_button_category.keys():
-            secs.append(finnhub_to_button_category[row['sectors']])
-            row['sectors'] = finnhub_to_button_category[row['sectors']]
-        else:
-            values_not_seg.append(row['sectors'])
-            secs.append(row['sectors'])
-    full_df['sectors'] = secs
-    print(secs)
-    print('/n'*5)
-    print(values_not_seg)
-    full_df.to_csv("data.csv",index=False)
-    data_generated = True
+        print("Fetching Data")
+
+        top_100 = generate_data('day_gainers')
+        print("Data Generated:top100")
+
+        most_active = generate_data('most_actives')
+        print("Data Generated:most_active")
+
+        trend = generate_data('aggressive_small_caps')
+        print("Data Generated:trend")
+
+        if not "list_type" in top_100.columns:
+            top_100["list_type"] = ["TOP 100" for i in range(len(top_100['symbol'].to_list()))]
+        if not "list_type" in most_active.columns:
+            most_active["list_type"] = ["MOST ACTIVE" for i in range(len(most_active['symbol'].to_list()))]
+        if not "list_type" in trend.columns:
+            trend["list_type"] = ["TRENDING" for i in range(len(trend['symbol'].to_list()))]
+
+
+        full_df_lst = [top_100,most_active,trend]
+        full_df = pd.concat(full_df_lst)
+        full_df.to_csv("data.csv",index=False)
+        
+        print("Data Generated and Saved.Now Creating Sectors...")
+        sectors = create_sector()
+        sec_column = []
+        for num,row in full_df.iterrows():
+            if row['symbol'] in sectors.keys():
+                sec_column.append(sectors[row['symbol']])
+            else:
+                sec_column.append("None")
+        full_df['sectors'] = sec_column
+        secs = []
+        values_not_seg = []
+        for num,row in full_df.iterrows():
+            if row['sectors'] in finnhub_to_button_category.keys():
+                secs.append(finnhub_to_button_category[row['sectors']])
+                row['sectors'] = finnhub_to_button_category[row['sectors']]
+            else:
+                values_not_seg.append(row['sectors'])
+                secs.append(row['sectors'])
+        full_df['sectors'] = secs
+        print(secs)
+        print('/n'*5)
+        print(values_not_seg)
+        full_df.to_csv("data.csv",index=False)
+        data_generated = True
+    except Exception as e:
+        print("error occured.")
+        print(e)
 
 
 
@@ -362,6 +367,8 @@ def load(request):
     if not data_loaded:
         return render(request, 'loader.html')
     else:
+        
+
         return redirect(reverse('stocks:ticker', args=[cache.get("ticker")] ))
     
 

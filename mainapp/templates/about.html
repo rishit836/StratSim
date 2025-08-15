@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block pagename %}About Me{% endblock pagename %}
+{% block header %}
+<link rel="stylesheet" href="{%static 'mainapp/styles/about.css'%}">
+{% endblock header %}
+{% block body %}
+
+<div class="about-container">
+    <div class="page-heading">
+        <div class="heading">
+            <h1>Hi {{request.user|lower}}</h1>
+        </div>
+    </div>
+</div>
+{% endblock body %}

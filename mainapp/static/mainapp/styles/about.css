@@ -1,0 +1,17 @@
+.about-container{
+    display:  flex;
+    width: 1200px;
+    margin: auto;
+}
+.page-heading,.heading{
+    display: flex;
+    color: white;
+}
+.heading{
+    margin-top: 90px;;
+    
+}
+.heading h1{
+    font-size: 1.8rem;;
+    font-weight: 100;
+}

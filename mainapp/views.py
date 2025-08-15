@@ -140,3 +140,7 @@ def portfolio_view(request):
             holding_available = False
         context = {"holdings":data,"holding_available":holding_available}
     return render(request,'portfolio.html',context)
+
+
+def about(request):
+    return render(request,"about.html")
