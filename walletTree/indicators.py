@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import threading
+import math
 
 def sma(series:pd.Series, period:int) -> pd.Series:
     return series.rolling(window=period, min_periods=period).mean()
@@ -16,6 +17,15 @@ def rsi(close:pd.Series,period:int=14)->pd.Series:
     loss_ema = pd.Series(loss,index=close.index).ewm(alpha=1/period,adjust=False,min_periods=period).mean()
     rs = gain_ema/loss_ema
     return 100 - (100 /(1+rs))
+
+def bullish_bearish_trend(close:pd.Series)->float:
+    """
+    returns a score out of 100, 100 being bullish and 0 being bearish
+    the stock can be in between too
+    """
+    
+    
+    return 0
 
 def compute_indicators(df:pd.DataFrame):
     thread_process = []
