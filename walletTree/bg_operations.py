@@ -91,8 +91,10 @@ class wait_clock():
         #creating a time copy
         self.current_time = self.time # so that can reduce the timer
         self.timer_started = False
+        self.name =name
         wait_clock._names.append(name)
         wait_clock._instances.append(self)
+        print(f"new clock instance created.\nname:{self.name}, object:{self}")
 
     
     def time_now(self):
@@ -109,6 +111,9 @@ class wait_clock():
             while self.current_time > 0:
                 self.current_time -= 1
                 time.sleep(1)
+            print(self.name ,"clock timer finished. deleting instance.")
+            wait_clock._instances.remove(self)
+            wait_clock._names.remove(self.name)
         else:
             print("Clock already running time left is:",self.current_time)
 
@@ -120,12 +125,6 @@ class wait_clock():
     def get_names(cls):
         return cls._names
     
-
-
-
-
-
-
 
 
 if __name__ == "__main__":

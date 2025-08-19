@@ -49,8 +49,6 @@ def fetch_data(date, ticker, interval="1"):
 
     response = requests.get(url, params=params)
     if response.status_code != 200:
-        print("Data Not Found")
-        print(response)
         return None, False
     
     json_data = response.json()
