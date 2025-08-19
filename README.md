@@ -175,5 +175,6 @@ Feel free to reach out or open an issue with improvement ideas around quant feat
 
 <div align="center">
 Made with 🧪, 📊 and ☕
+-by Rishit Sharma
 </div>
 
