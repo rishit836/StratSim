@@ -13,7 +13,6 @@ from .trade import execute_trade
 from .models import holding
 from walletTree import modelling
 from django.contrib import messages
-
 import random
 
 # Global flags

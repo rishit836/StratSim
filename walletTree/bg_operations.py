@@ -6,6 +6,7 @@ import datetime
 from .modelling import train
 
 
+
 global mod ,file_counter,file_name
 
 file_counter = 0
@@ -80,6 +81,45 @@ def bg_handler(ticker,data_len):
         
     else:
         print("already running no need for starting another subprocess for training ")
+
+
+class wait_clock():
+    _instances = []
+    _names = []
+    def __init__(self,name:str,time:int=3000):
+        self.time = time
+        #creating a time copy
+        self.current_time = self.time # so that can reduce the timer
+        self.timer_started = False
+        wait_clock._names.append(name)
+        wait_clock._instances.append(self)
+
+    
+    def time_now(self):
+        return self.current_time
+    
+    def timer_is_done(self):
+        if self.current_time <=0 :
+            return True
+        else:
+            return False
+    
+    def start_clock(self):
+        if not self.timer_started:
+            while self.current_time > 0:
+                self.current_time -= 1
+                time.sleep(1)
+        else:
+            print("Clock already running time left is:",self.current_time)
+
+    @classmethod
+    def get_objects(cls):
+        return cls._instances
+
+    @classmethod
+    def get_names(cls):
+        return cls._names
+    
 
 
 

@@ -9,7 +9,7 @@ import requests
 import pandas as pd
 import yfinance as yf
 import threading
-from .bg_operations import bg_handler
+from .bg_operations import bg_handler,wait_clock
 from stocks.views import chart_view
 from django.core.cache import cache
 from .indicators import compute_indicators
@@ -153,7 +153,8 @@ def retrieve_data(ticker):
             print("error getting data for",ticker,"for period:",period)
             return False
     data_loaded = True
-    
+
+
 def scrape(request,ticker):
     global t,status,data_loaded
     chart_view = cache.get("chart_view")
@@ -180,7 +181,12 @@ def scrape(request,ticker):
     #     status= False
     status= True
     t = ticker.upper()
-    expected_time = 3000
+    if not "test_clock" in wait_clock.get_names():
+        clock_obj = wait_clock("test_clock")
+        threading.Thread(target=clock_obj.start_clock).start() 
+    else:
+        clock_obj = wait_clock.get_objects()[0]
+    expected_time = clock_obj.time_now()
     if not status:
         t = ticker.upper()
         ticker = yf.Ticker(t)
