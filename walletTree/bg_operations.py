@@ -47,9 +47,6 @@ def rl_model_train(ticker,data_len):
     while not all(mod):
         if not training:
             training = train(file_counter,file_name)
-        
-        
-
     
     print("finished training")
 

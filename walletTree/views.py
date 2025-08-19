@@ -131,7 +131,7 @@ def get_data_for_view(ticker,period:str="1y"):
         name = str(ticker) + "_"+period
         for keys in _result_.keys():
             df[str(keys)] = _result_[keys]
-        print(df.head())
+            print(keys)
         cache.set(name,df,timeout=60*60*24)
         cache.set(str(period)+"_result",_result_, timeout=60*60*24)
         return True
